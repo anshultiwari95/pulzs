@@ -3,36 +3,16 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  X,
-  DialogOverlay,
-} from "ui/components/dialog";
-import ToggleButton from "./toggleButton";
-import { Button } from "ui/components/button";
-import { BorderLessInput } from "ui/components/borderlessinput";
-import { DatePickerWithPresets } from "ui/components/datepicker";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "ui/components/tabs";
-import { Icons } from "ui/components/icons";
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "ui/components/command";
+} from "../../components/dialog";
+import { Button } from "../../components/button";
+import { BorderLessInput } from "../../components/borderlessinput";
 
 import DropdownMenuTeams from "./DropdownMenuTeams";
 import { AutoComplete, Option } from "./autocomplete";
-const VideoRecorderCompleted = ({ recordedVideoLink }) => {
+const VideoRecorderCompleted = ({ recordedVideoLink }:any) => {
   const [isTyping, setIsTyping] = useState(false);
 
   const [query, setQuery] = useState("");
@@ -79,7 +59,7 @@ const VideoRecorderCompleted = ({ recordedVideoLink }) => {
 
   const emptyMessage = "No options available";
 
-  const handleValueChange = (selectedOption) => {
+  const handleValueChange = (selectedOption:any) => {
     // Handle the selected option
     console.log("Selected Option:", selectedOption);
   };
@@ -103,9 +83,9 @@ const VideoRecorderCompleted = ({ recordedVideoLink }) => {
   //   return <div ref={wrapperRef}>{children}</div>;
   // };
 
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return function (...args) {
+  const debounce = (func:any, delay:any) => {
+    let timeoutId:any;
+    return function (...args: any) {
       const context = this;
 
       clearTimeout(timeoutId);
@@ -115,7 +95,7 @@ const VideoRecorderCompleted = ({ recordedVideoLink }) => {
     };
   };
 
-  const fetchSuggestions = async (searchQuery) => {
+  const fetchSuggestions = async (searchQuery:any) => {
     const response = await fetch(
       `http://localhost:8080/api/videorecordercompleted/search?query=${searchQuery}`
     );
@@ -131,7 +111,7 @@ const VideoRecorderCompleted = ({ recordedVideoLink }) => {
 
   //   debouncedFetchSuggestions(newQuery);
   // };
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
 

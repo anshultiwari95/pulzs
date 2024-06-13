@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "ui/components/dropdown";
+} from "../../components/dropdown";
 
 const DropdownMenuTeams = () => {
   return (
