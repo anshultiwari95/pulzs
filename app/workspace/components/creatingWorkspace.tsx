@@ -8,16 +8,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "ui/components/dialog";
-import { Input } from "ui/components/input";
-import { Label } from "ui/components/label";
+} from "../../components/dialog";
+import { Input } from "../../components/input";
 import FlaggIcon from "../../../icons/FlaggIcon";
 import { FaPlus } from "react-icons/fa";
 
 import { WorkspaceProps } from "../../dashboard/components/DropDown";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
-
+import {fetchData} from "../../utils/axios"
 export function CreatingWorkspace(props: WorkspaceProps) {
   const [workspaceName, setWorkspaceName] = useState("");
   const [openModel, setOpenModel] = useState(false);
@@ -26,20 +25,28 @@ export function CreatingWorkspace(props: WorkspaceProps) {
 
   const createWorkspace = async () => {
     try {
-      console.log("workspacesssss");
-      const response = await fetch(
-        "http://localhost:8080/api/create-new-workspace",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      // const response = await fetch(
+      //   "http://localhost:8080/api/create-new-workspace",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       workspace_name: workspaceName,
+      //       creater_id: userId,
+      //     }),
+      //   }
+      // );
+
+      const response = await fetchData({
+        url: "/create-new-workspace",
+        method: "post",
           body: JSON.stringify({
             workspace_name: workspaceName,
             creater_id: userId,
           }),
-        }
-      );
+      });
 
       if (response.ok) {
         const data = await response.json();

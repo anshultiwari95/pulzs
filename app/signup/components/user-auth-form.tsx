@@ -178,7 +178,7 @@ import { useRouter } from "next/navigation";
 import SigninButton from "../../../components/SigninButton";
 import toast from "react-hot-toast";
 import { z } from "zod";
-
+import {fetchData} from "../../utils/axios"
 const schema = z.object({
   email: z.string().email({ message: "Invalid email" }),
   password: z
@@ -258,11 +258,16 @@ export function UserAuthForm() {
 
       setIsLoading(true);
       // Call your API endpoint for registration
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      // const response = await fetch("/api/signup", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ email, password, phonenumber }),
+      // });
+      const response = await fetchData({
+        url: "/api/signup",
+        method: "post",
         body: JSON.stringify({ email, password, phonenumber }),
       });
       console.log("response:", response);

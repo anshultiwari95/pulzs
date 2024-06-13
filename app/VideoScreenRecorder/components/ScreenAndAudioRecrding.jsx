@@ -9,6 +9,8 @@ import RecordRTC from "recordrtc";
 import { useMyContext } from "../../../context/MyContext";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
+
+import {fetchData} from "../utils/axios"
 const ScreenAndAudioRecorder = forwardRef((props, ref) => {
   const {
     title,
@@ -129,14 +131,20 @@ const ScreenAndAudioRecorder = forwardRef((props, ref) => {
         formData.append("userId", userId);
         formData.append("selectWorkspaceId", selectWorkspace.workspace_id);
 
-        const response = await fetch(
-          "http://localhost:8080/api/uploadVideo",
-          // `http://localhost:8080/api/comments/createvideocomment/${videoId}`,
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
+        // const response = await fetch(
+        //   "http://localhost:8080/api/uploadVideo",
+        //   // `http://localhost:8080/api/comments/createvideocomment/${videoId}`,
+        //   {
+        //     method: "POST",
+        //     body: formData,
+        //   }
+        // );
+
+        const response = await fetchData({
+          url: "/uploadVideo",
+          method: "post",
+          body: formData,
+        });
 
         const responseData = await response.json();
         const { result } = responseData;
@@ -217,13 +225,19 @@ const ScreenAndAudioRecorder = forwardRef((props, ref) => {
       formData.append("typeComment", type);
 
       console.log(formData);
-      const response = await fetch(
-        `http://localhost:8080/api/comments/createvideocomment/${videoId}`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      // const response = await fetch(
+      //   `http://localhost:8080/api/comments/createvideocomment/${videoId}`,
+      //   {
+      //     method: "POST",
+      //     body: formData,
+      //   }
+      // );
+
+      const response = await fetchData({
+        url: `/comments/createvideocomment/${videoId}`,
+        method: "post",
+        body: formData,
+      });
 
       const responseData = await response.json();
       const { result, success } = responseData;

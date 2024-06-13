@@ -9,7 +9,7 @@ import {
 } from "../../components/dialog";
 import { Button } from "../../components/button";
 import { BorderLessInput } from "../../components/borderlessinput";
-
+import {fetchData} from "../../utils/axios"
 import DropdownMenuTeams from "./DropdownMenuTeams";
 import { AutoComplete, Option } from "./autocomplete";
 const VideoRecorderCompleted = ({ recordedVideoLink }:any) => {
@@ -96,9 +96,14 @@ const VideoRecorderCompleted = ({ recordedVideoLink }:any) => {
   };
 
   const fetchSuggestions = async (searchQuery:any) => {
-    const response = await fetch(
-      `http://localhost:8080/api/videorecordercompleted/search?query=${searchQuery}`
-    );
+    // const response = await fetch(
+    //   `http://localhost:8080/api/videorecordercompleted/search?query=${searchQuery}`
+    // );
+    const response = await fetchData({
+      url: `/videorecordercompleted/search?query=${searchQuery}`,
+      method: "get",
+      body: null
+    });
     const data = await response.json();
     // setSuggestions(data.suggestions);
   };

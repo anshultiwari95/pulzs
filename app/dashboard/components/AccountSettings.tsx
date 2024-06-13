@@ -8,11 +8,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "ui/components/dialog";
+} from "../../components/dialog";
 import { AvatarDemo } from "./avatar";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import {fetchData} from "../../utils/axios";
 export interface User {
   id: string;
   name: string;
@@ -35,9 +36,14 @@ export function Settings() {
   const fetchUserInfo = async () => {
     if (session && userId) {
       try {
-        const userData = await fetch(
-          `http://localhost:8080/api/get-user-info?user_id=${userId}`
-        );
+        // const userData = await fetch(
+        //   `http://localhost:8080/api/get-user-info?user_id=${userId}`
+        // );
+        const userData = await fetchData({
+          url:`/get-user-info?user_id=${userId}`,
+          method: "get",
+          body: null
+        });
         const data = await userData.json();
         setUser(data?.userInfo);
         console.log("userInfo", data.userInfo);
@@ -51,19 +57,27 @@ export function Settings() {
 
   const updateUserName = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/update-user-name",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+      // const response = await fetch(
+      //   "http://localhost:8080/api/update-user-name",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       user_id: userId,
+      //       user_name: userName,
+      //     }),
+      //   }
+      // );
+      const response = await fetchData({
+        url:"/update-user-name",
+        method: "post",
+        body: JSON.stringify({
             user_id: userId,
             user_name: userName,
           }),
-        }
-      );
+      });
 
       if (response.ok) {
         const data = await response.json();

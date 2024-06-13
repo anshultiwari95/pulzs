@@ -37,12 +37,14 @@ import {
   DialogTrigger,
   X,
   DialogOverlay,
-} from "ui/components/dialog";
+} from "../../components/dialog";
 import { User as UserType } from "../../../types";
 
 import { MyContextProvider, useMyContext } from "../../../context/MyContext";
 import MyPulzePage from "../sideComponents/MyPulzeComponent";
 import ActivityPage from "../sideComponents/ActivityComponent";
+
+import {fetchData} from "../../utils/axios";
 // import { Popover } from "ui/components/popover";
 
 import {
@@ -252,15 +254,20 @@ const Dashboard = () => {
   const workspaceId = "1bd89f4c-36eb-4411-9232-acb129219e8f";
   const userId = session?.user.id;
   const userName = session?.user.name;
-  let responseTime;
+  let responseTime: string;
   let formattedHours;
 
   const fetchAllWorkspace = async () => {
     if (session && userId) {
       try {
-        const workspaceData = await fetch(
-          `http://localhost:8080/api/get-workspace-by-user?user_id=${userId}`
-        );
+        // const workspaceData = await fetch(
+        //   `http://localhost:8080/api/get-workspace-by-user?user_id=${userId}`
+        // );
+        const workspaceData = await fetchData({
+          url:`/get-workspace-by-user?user_id=${userId}`,
+          method: "get",
+          body: null
+        });
         const data = await workspaceData.json();
 
         setAllWorkspaces(data.workspaces);
@@ -316,11 +323,28 @@ const Dashboard = () => {
 
   const handleSendVideo = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/sendVideo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      // const response = await fetch("http://localhost:8080/api/sendVideo", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     senderId: userId,
+      //     recipientData: selectedUsers,
+      //     // videoId: videoIdFromVideoScreenRecorder,
+      //     videoId: videoObjectFromRecorder.video_id,
+      //     videoObject: videoObjectFromRecorder,
+      //     titleFromFrontend: title,
+      //     descriptionFromFrontend: description,
+      //     // responseTime: "2024-02-27T12:00:00.000Z",
+      //     responseTime: responseTime,
+
+      //     // workspaceId: workspaceId,
+      //     workspaceId: selectWorkspace?.workspace_id,
+      //   }),
+      // });
+      const response = await fetchData({url:"/sendVideo",
+        method: "post",
         body: JSON.stringify({
           senderId: userId,
           recipientData: selectedUsers,
@@ -365,9 +389,15 @@ const Dashboard = () => {
         const userId = session?.user.id;
         console.log("userId from session", userId);
 
-        const response = await fetch(
-          `http://localhost:8080/api/getvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`
-        );
+        // const response = await fetch(
+        //   `http://localhost:8080/api/getvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`
+        // );
+
+        const response = await fetchData({
+          url:`/getvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`,
+          method: "get",
+          body: null
+        });
         const data = await response.json();
         // console.log("user videos in db", data);
         setUserVideos(data);
@@ -382,9 +412,15 @@ const Dashboard = () => {
   const fetchRecievedVideos = async () => {
     try {
       if (selectWorkspace?.workspace_id) {
-        const response = await fetch(
-          `http://localhost:8080/api/recievedvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`
-        );
+        // const response = await fetch(
+        //   `http://localhost:8080/api/recievedvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`
+        // );
+
+        const response = await fetchData({
+            url: `/recievedvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`,
+            method: "get",
+            body: null
+        });
 
         const data = await response.json();
         // console.log("recieved videos in db", data);
@@ -421,12 +457,9 @@ const Dashboard = () => {
     // console.log("entered handleDeleteVideo");
 
     try {
-      const response = await fetch("http://localhost:8080/api/deletevideo", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ videoId }),
+      const response = await fetchData({url:"http://localhost:8080/api/deletevideo",
+        method: "post",
+        body: JSON.stringify({ videoId })
       });
 
       if (!response.ok) {

@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import moment from "moment";
+import {fetchData} from "../../../../utils/axios";
 interface VideoPlayerProps {
   onTimeUpdate: (time: number) => void;
   timeStamp: string;
@@ -25,9 +26,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   const fetchVideoKey = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/getVideoId/${videoId}`
-      );
+      // const response = await fetch(
+      //   `http://localhost:8080/api/getVideoId/${videoId}`
+      // );
+
+      const response = await fetchData({
+        url: `/getVideoId/${videoId}`,
+        method: "get",
+        body: null
+      });
+      
       if (!response.ok) {
         throw new Error("Video not found");
       }

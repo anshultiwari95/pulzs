@@ -4,6 +4,7 @@ import { Settings } from "./AccountSettings";
 import { AvatarDemo } from "./avatar";
 import { IoIosArrowDown } from "react-icons/io";
 import { useSession, signOut } from "next-auth/react";
+import {fetchData} from "../../utils/axios"
 export interface User {
   id: string;
   name: string;
@@ -36,9 +37,11 @@ const Account = () => {
   const fetchUserInfo = async () => {
     if (session && userId) {
       try {
-        const userData = await fetch(
-          `http://localhost:8080/api/get-user-info?user_id=${userId}`
-        );
+        const userData = await fetchData({
+          url:`/get-user-info?user_id=${userId}`,
+          body: null,
+          method: "get"
+        });
         const data = await userData.json();
         setUser(data?.userInfo);
         console.log("userInfo", data.userInfo);
