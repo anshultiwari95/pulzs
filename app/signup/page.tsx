@@ -4,25 +4,25 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { cn } from "ui/lib/utils";
+//import { cn } from "ui/lib/utils";
 import SignUpPAgeImage from "../../icons/SignUpPageImage";
 
 //import { buttonVariants } from "@/registry/new-york/ui/button"
 import { UserAuthForm } from "./components/user-auth-form";
-import {
-  // Avatar,
-  // AvatarFallback,
-  // AvatarImage,
-  buttonVariants,
-  Button,
-  Header,
-  Heading,
-} from "ui";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../../../packages/ui/components/avatar";
+// import {
+//   // Avatar,
+//   // AvatarFallback,
+//   // AvatarImage,
+//   buttonVariants,
+//   Button,
+//   Header,
+//   Heading,
+// } from "ui";
+// import {
+//   Avatar,
+//   AvatarFallback,
+//   AvatarImage,
+// } from "../../../../packages/ui/components/avatar";
 import SigninButton from "../../components/SigninButton";
 
 export const metadata: Metadata = {

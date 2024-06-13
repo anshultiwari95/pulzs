@@ -128,27 +128,27 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { cn } from "ui/lib/utils";
+//import { cn } from "ui/lib/utils";
 
 //import { buttonVariants } from "@/registry/new-york/ui/button"
 // const UserAuthForm = dynamic(() => import("./components/user-auth-form"), {
 //   ssr: false,
 //   });
 import { UserAuthForm } from "./components/user-auth-form";
-import {
-  // Avatar,
-  // AvatarFallback,
-  // AvatarImage,
-  buttonVariants,
-  Button,
-  Header,
-  Heading,
-} from "ui";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../../../packages/ui/components/avatar";
+// import {
+//   // Avatar,
+//   // AvatarFallback,
+//   // AvatarImage,
+//   buttonVariants,
+//   Button,
+//   Header,
+//   Heading,
+// } from "ui";
+// import {
+//   Avatar,
+//   AvatarFallback,
+//   AvatarImage,
+// } from "../../../../packages/ui/components/avatar";
 import { ForgetPassword } from "./components/forgetPassword";
 
 export const metadata: Metadata = {

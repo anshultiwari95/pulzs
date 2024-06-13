@@ -14,7 +14,7 @@ const Footer = () => {
           </div>
           <div className="flex flex-row justify-center content-center">
             <p className="font-poppins font-bold text-xl mt-4">
-              Built by an Anshul Tiwari And Binu Baiju
+              Built by Anshul Tiwari and Binu Baiju
             </p>
             <div>
               <GlobeIcon className="scale-[45%]" />

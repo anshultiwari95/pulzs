@@ -10,7 +10,7 @@ import prisma from "../../lib/prisma";
 // const DOMAIN = process.env.DOMAIN || "localhost:3000";
 // const PROTOCOL = process.env.NODE_ENV === "production" ? "https" : "http";
 
-import { Button } from "ui/components/button";
+import { Button } from "../../components/button";
 import {
   Dialog,
   DialogContent,
@@ -19,9 +19,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "ui/components/dialog";
-import { Input } from "ui/components/input";
-import { Label } from "ui/components/label";
+} from "../../components/dialog";
+import { Input } from "../../components/input";
+import { Label } from "../../components/label";
 import FlaggIcon from "../../../icons/FlaggIcon";
 import { useState } from "react";
 import { resetPassword } from "./_actions";
