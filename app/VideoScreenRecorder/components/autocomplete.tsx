@@ -1,13 +1,13 @@
 "use client"
 
-import { CommandGroup, CommandItem, CommandList, CommandInput } from "ui/components/command"
-import { Command as CommandPrimitive } from "../../../../../packages/ui/node_modules/cmdk"
+import { CommandGroup, CommandItem, CommandList, CommandInput } from "../../components/command"
+import { Command as CommandPrimitive } from "cmdk"
 import { useState, useRef, useCallback, type KeyboardEvent } from "react"
 
-import { Skeleton } from "ui/components/skelton"
-import { cn } from "../../../../../packages/ui/lib/utils"      
+import { Skeleton } from "../../components/skeleton"
+import { cn } from "../../utils/utils"      
 // /lib/utils"
-import { Check } from "../../../../../packages/ui/node_modules/lucide-react"
+import { Check } from "lucide-react"
 
 export type Option = Record<"value" | "label", string> & Record<string, string>
 
