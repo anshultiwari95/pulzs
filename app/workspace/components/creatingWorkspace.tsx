@@ -48,20 +48,20 @@ export function CreatingWorkspace(props: WorkspaceProps) {
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
+  
+      if (response) {
+
         // console.log("SendVideo response:", data);
-        props.updateWorkspace(data.workspace);
+        props.updateWorkspace(response.workspace);
         toast("workspace created successfully");
         setOpenModel(false);
       } else {
-        const data = await response.json();
-        console.error("workspace not created", data.error);
-        toast("try again", data.error);
+        console.error("workspace not created", response);
+        toast("try again",response);
       }
     } catch (error) {
       console.error("Error creating workspace:", error);
-      toast("error", error);
+      toast("error", error?.error);
     }
   };
   return (

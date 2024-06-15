@@ -28,12 +28,12 @@ export default function Register() {
       //   body: JSON.stringify(data),
       // });
 
-      const response = await fetchData({url: "/api/registerorlogin",
+      const response = await fetchData({url: "/registerorlogin",
         method: "post",
         body: JSON.stringify(data),
       });
 
-      if (response.ok) {
+      if (response) {
         // Registration successful, sign in the user
         await signIn("credentials", {
           email: data.email,
@@ -44,11 +44,11 @@ export default function Register() {
 
         toast.success("User has been registered and signed in!");
       } else {
-        const errorData = await response.json();
-        toast.error(`Registration failed: ${errorData.error}`);
+        // const errorData = await response.json();
+        toast.error(`Registration failed: ${response}`);
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during registration:", error?.error);
       toast.error("Something went wrong during registration");
     }
   };

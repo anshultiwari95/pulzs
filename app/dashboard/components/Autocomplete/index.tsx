@@ -75,18 +75,18 @@ export default function AutoComplete({
       const workspaceId = "1bd89f4c-36eb-4411-9232-acb129219e8f";
       const query = encodeURIComponent(searchQuery);
       const response = await fetchData({
-        url: `/videorecordercompleted/search?workspaceId=${selectWorkspace.workspace_id}&query=${query}&userIdToRemove=${userId}`,
+        url: `/videorecordercompleted/search?workspaceId=${selectWorkspace?.workspace_id}&query=${query}&userIdToRemove=${userId}`,
         method: "get",
         body: JSON.stringify({ userId }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("users in AutoComplete", data.suggestions);
-        const users = data.suggestions;
+      if (response) {
+        // const data = await response.json();
+        console.log("users in AutoComplete", response.suggestions);
+        const users = response.suggestions;
         // const filteredUser = users.find((user) => user.id === userId);
-        setUsers(data.suggestions);
-        setMatchedUsers(data.suggestions);
+        setUsers(response.suggestions);
+        setMatchedUsers(response.suggestions);
       } else {
         console.error("Failed to fetch users from the database");
       }

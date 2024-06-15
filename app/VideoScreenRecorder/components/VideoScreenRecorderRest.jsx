@@ -32,8 +32,8 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
   console.log("Requestbody from videoScreenRecorder", requestBody);
   console.log(`typecomment1:${typeComment1}`);
   console.log("saveVideoAfterStopRecording", saveVideoAfterStopRecordingOrNot);
-  console.log("selectWorkspaceID", selectWorkspace.workspace_id);
-  const workspaceId = selectWorkspace.workspace_id;
+  console.log("selectWorkspaceID", selectWorkspace?.workspace_id);
+  const workspaceId = selectWorkspace?.workspace_id;
 
   useImperativeHandle(ref, () => ({
     startRecording,
@@ -111,7 +111,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
     } catch (error) {
       console.error(error);
       alert(
-        "Unable to capture your screen. Please check console logs.\n" + error
+        "Unable to capture your screen. Please check console logs.\n" + error?.error
       );
     }
   };
@@ -123,7 +123,8 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
         video: true,
       });
     } catch (error) {
-      console.error(error);
+      console.error(error?.error);
+      toast(error?.error)
     }
   };
 
@@ -210,7 +211,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
             formData.append("title", title);
             formData.append("description", description);
             formData.append("userId", userId);
-            formData.append("selectWorkspaceId", selectWorkspace.workspace_id);
+            formData.append("selectWorkspaceId", selectWorkspace?.workspace_id);
 
             // const response = await fetch(
             //   "http://localhost:8080/api/uploadVideo",
@@ -226,12 +227,12 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
               body: formData
           });
 
-            const responseData = await response.json();
-            const { result } = responseData;
+            // const responseData = await response.json();
+            const { result } = response;
             setResultVideosrccontext(
               `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.key}`
             );
-            console.log("Server Response:", responseData);
+            console.log("Server Response:", response);
             console.log(
               "Server Response result:",
               result.VideoUploadedtoVideoMySqlDetails
@@ -253,7 +254,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
             // };
 
             console.log(resultVideosrc);
-            if (responseData.success) {
+            if (response.success) {
               console.log(`src:${resultVideosrccontext}`);
               if (typeof onRecordingCompleteAndGettingVideoId === "function") {
                 try {
@@ -264,7 +265,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
                     result.VideoUploadedtoVideoMySqlDetails
                   );
                 } catch (error) {
-                  console.error("Error doing the function:", error);
+                  console.error("Error doing the function:", error?.error);
                 }
               } else {
                 console.error(
@@ -277,7 +278,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
               toast("Video upload failed");
             }
           } catch (error) {
-            console.error("Error uploading video:", error);
+            console.error("Error uploading video:", error?.error);
             alert("Error uploading video");
           }
         }
@@ -325,13 +326,13 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
         method: "post",
         body: formData,
       });
-      if (!response.ok) {
+      if (!response) {
         console.error(`Error uploading video:`);
       }
-      const responseData = await response.json();
-      console.log("Server Response:", responseData);
+      // const responseData = await response.json();
+      console.log("Server Response:", response);
 
-      const { result, success } = responseData;
+      const { result, success } = response;
       console.log("sucess", success);
       if (
         result.VideoUploadedToS3Details &&
@@ -361,7 +362,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
         toast("Video upload failed");
       }
     } catch (error) {
-      console.error("Error uploading video:", error);
+      console.error("Error uploading video:", error?.error);
       // alert("Error uploading video from frontend");
     }
   };
@@ -379,7 +380,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
         videoRef.current.srcObject = cameraStream;
       }
     } catch (error) {
-      console.error("Error accessing camera:", error);
+      console.error("Error accessing camera:", error?.error);
     }
   };
   const stopCamera = () => {

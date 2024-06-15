@@ -103,7 +103,7 @@ const VideoAndAudioRecorder = forwardRef((props, ref) => {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("userId", userId);
-        formData.append("selectWorkspaceId", selectWorkspace.workspace_id);
+        formData.append("selectWorkspaceId", selectWorkspace?.workspace_id);
 
         // const response = await fetch(
         //   "http://localhost:8080/api/uploadVideo",
@@ -121,12 +121,12 @@ const VideoAndAudioRecorder = forwardRef((props, ref) => {
         });
 
 
-        const responseData = await response.json();
-        const { result } = responseData;
+        // const responseData = await response.json();
+        const { result } = response;
         setResultVideosrccontext(
           `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.key}`
         );
-        console.log("Server Response:", responseData);
+        console.log("Server Response:", response);
         console.log("Server Response result:", result);
         console.log(
           "Server Response result,VideoId:",
@@ -145,7 +145,7 @@ const VideoAndAudioRecorder = forwardRef((props, ref) => {
         // };
 
         console.log(resultVideosrc);
-        if (responseData.success) {
+        if (response.success) {
           console.log(`src:${resultVideosrccontext}`);
           if (typeof onRecordingCompleteAndGettingVideoId === "function") {
             try {
@@ -153,7 +153,7 @@ const VideoAndAudioRecorder = forwardRef((props, ref) => {
                 result.VideoUploadedtoVideoMySqlDetails.video_id
               );
             } catch (error) {
-              console.error("Error doing the function:", error);
+              console.error("Error doing the function:", error?.error);
             }
           } else {
             console.error(
@@ -166,8 +166,8 @@ const VideoAndAudioRecorder = forwardRef((props, ref) => {
           toast("Video upload failed");
         }
       } catch (error) {
-        console.error("Error uploading video:", error);
-        alert("Error uploading video");
+        console.error("Error uploading video:", error?.error);
+        alert("Error uploading video", error?.error);
       }
     }
     recorderRef.current.camera.stop();
@@ -217,12 +217,12 @@ const VideoAndAudioRecorder = forwardRef((props, ref) => {
         body: formData,
       });
 
-      const responseData = await response.json();
-      const { result, success } = responseData;
+      // const responseData = await response.json();
+      const { result, success } = response;
       setResultVideosrccontext(
         `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.key}`
       );
-      console.log("Server Response:", responseData);
+      console.log("Server Response:", response);
       console.log("Server Response result:", result);
       setResultVideosrc(
         `https://d1yt4919vxgwb5.cloudfront.net/${result.VideoUploadedToS3Details.key}`
@@ -243,7 +243,7 @@ const VideoAndAudioRecorder = forwardRef((props, ref) => {
         toast("Video upload failed");
       }
     } catch (error) {
-      console.error("Error uploading video:", error);
+      console.error("Error uploading video:", error?.error);
       // alert("Error uploading video from frontend");
     }
   };

@@ -44,10 +44,10 @@ export function Settings() {
           method: "get",
           body: null
         });
-        const data = await userData.json();
-        setUser(data?.userInfo);
-        console.log("userInfo", data.userInfo);
-        setUserName(data?.userInfo?.name);
+        // const data = await userData.json();
+        setUser(userData?.userInfo);
+        console.log("userInfo", userData.userInfo);
+        setUserName(userData?.userInfo?.name);
       } catch (ex) {
         console.log("ex from user", ex);
         // alert("Error while fetching workspace");

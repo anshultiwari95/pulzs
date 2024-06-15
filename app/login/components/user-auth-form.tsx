@@ -96,9 +96,9 @@ export function UserAuthForm() {
       });
       console.log("response:", response);
       // if (response.ok) {
-      const responseData = await response.json();
-      console.log("responseData:", responseData);
-      if (responseData.success) {
+      // const responseData = await response.json();
+      console.log("responseData:", response);
+      if (response.success) {
         // Registration successful, sign in the user
         await signIn("credentials", {
           email: email,
@@ -108,7 +108,7 @@ export function UserAuthForm() {
           // Add other necessary fields if needed
         });
 
-        toast.success(responseData.message);
+        toast.success(response.message);
         // toast.success(response.message);
         // }
       } else {
@@ -116,7 +116,7 @@ export function UserAuthForm() {
         // const errorData = await response.json();
         // console.log("error data:", errorData);
 
-        toast.error(`${responseData.message}`);
+        toast.error(`${response.message}`);
         router.push("/signup");
       }
     } catch (error) {

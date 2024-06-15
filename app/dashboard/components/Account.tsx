@@ -42,9 +42,9 @@ const Account = () => {
           body: null,
           method: "get"
         });
-        const data = await userData.json();
-        setUser(data?.userInfo);
-        console.log("userInfo", data.userInfo);
+        console.log("userData", userData)
+        setUser(userData?.userInfo);
+        console.log("userInfo", userData.userInfo);
       } catch (ex) {
         console.log("ex from user", ex);
       }

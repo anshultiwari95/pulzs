@@ -6,7 +6,7 @@ interface axiosProps {
   headers?: any;
 }
 // const BASE_URL = "https://pulze-backend.onrender.com/api"
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = "http://localhost:8080/api"
 export async function fetchData<T = unknown>({ url, body, method, headers = null }: axiosProps): Promise<any> {
   try
   {
@@ -40,15 +40,19 @@ export async function fetchData<T = unknown>({ url, body, method, headers = null
     {
       const error = {
         errorCode: response.status,
-        message: response.statusText
+        error: response.statusText
       }
-      throw(error)
+      return error
     }
   }
   catch(ex)
   {
     console.log("error in axios", ex)
-    throw(ex)
+    const error= {
+      errorCode: ex?.code,
+      error: ex?.response?.data.error
+    }
+    throw(error)
   }
   
 }

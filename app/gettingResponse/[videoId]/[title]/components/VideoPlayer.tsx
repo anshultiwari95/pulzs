@@ -36,22 +36,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         body: null
       });
       
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Video not found");
       }
-      const data = await response.json();
-      console.log("key from videoPlayer", data.key);
-      console.log("creaton from videoPlayer", data.createdon);
-      console.log("creator from videoPlayer", data.creator);
+      // const data = await response.json();
+      console.log("key from videoPlayer", response.key);
+      console.log("creaton from videoPlayer", response.createdon);
+      console.log("creator from videoPlayer", response.creator);
 
       functionToPassCreatedOnToDashboard(
-        moment(data.createdOn).format("DD MMM YYYY"),
-        data.creator
+        moment(response.createdOn).format("DD MMM YYYY"),
+        response.creator
       );
       // setVideoKey(data.key);
-      setVideosrc(`https://d1yt4919vxgwb5.cloudfront.net/${data.key}`);
+      setVideosrc(`https://d1yt4919vxgwb5.cloudfront.net/${response.key}`);
       console.log(
-        `src from fetchvideoKey :https://d1yt4919vxgwb5.cloudfront.net/${data.key}`
+        `src from fetchvideoKey :https://d1yt4919vxgwb5.cloudfront.net/${response.key}`
       );
       console.log("hello");
     } catch (error) {

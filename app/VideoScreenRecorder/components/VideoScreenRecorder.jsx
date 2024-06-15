@@ -524,7 +524,7 @@ const VideoScreenRecorder = () => {
           );
         }
       } catch (error) {
-        console.error(error);
+        console.error(error?.error);
         alert(
           "Unable to capture your screen. Please check console logs.\n" + error
         );
@@ -538,7 +538,7 @@ const VideoScreenRecorder = () => {
           video: true,
         });
       } catch (error) {
-        console.error(error);
+        console.error(error?.error);
       }
     };
 
@@ -557,14 +557,14 @@ const VideoScreenRecorder = () => {
       keepStreamActive(screenStream);
       keepStreamActive(cameraStream);
 
-      screenStream.width = window.screen.width;
-      screenStream.height = window.screen.height;
-      screenStream.fullcanvas = true;
+      screenStream?.width = window.screen?.width;
+      screenStream?.height = window.screen?.height;
+      screenStream?.fullcanvas = true;
 
-      cameraStream.width = 320;
-      cameraStream.height = 240;
-      cameraStream.top = screenStream.height - cameraStream.height;
-      cameraStream.left = screenStream.width - cameraStream.width;
+      cameraStream?.width = 320;
+      cameraStream?.height = 240;
+      cameraStream?.top = screenStream?.height - cameraStream?.height ?? 0;
+      cameraStream?.left = screenStream?.width - cameraStream?.width ?? 0;
 
       recorder.current = RecordRTC([screenStream, cameraStream], {
         type: "video",
@@ -644,7 +644,7 @@ const VideoScreenRecorder = () => {
               alert("Video upload failed");
             }
           } catch (error) {
-            console.error("Error uploading video:", error);
+            console.error("Error uploading video:", error?.error);
           }
         });
       }

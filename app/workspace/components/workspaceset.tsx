@@ -54,8 +54,8 @@ export function WorkSpaceSet(props: WorkspaceProps) {
             body: null,
             method: 'get'
           });
-        const data = await workspaceMemberData.json();
-        setWorkspaceMembers(data.workspaceMembers);
+        // const data = await workspaceMemberData.json();
+        setWorkspaceMembers(workspaceMemberData.workspaceMembers);
         console.log("selectWorkspaceMembers", workspaceMembers);
       } catch (ex) {
         console.log("ex from workspace", ex);
@@ -73,10 +73,10 @@ export function WorkSpaceSet(props: WorkspaceProps) {
           method: 'get'
         }
         );
-        const data = await workspaceData.json();
-        setWorkspace(data.workspace);
-        if (data.workspace?.name) {
-          setWorkspaceName(data.workspace?.name);
+        // const data = await workspaceData.json();
+        setWorkspace(workspaceData.workspace);
+        if (workspaceData.workspace?.name) {
+          setWorkspaceName(workspaceData.workspace?.name);
         }
 
         console.log("workspace", workspace);
@@ -112,9 +112,9 @@ export function WorkSpaceSet(props: WorkspaceProps) {
             }),
           });
 
-      if (response.ok) {
-        const data = await response.json();
-        props.updateWorkspace(data.workspaces);
+      if (response) {
+        // const data = await response.json();
+        props.updateWorkspace(response.workspaces);
         // console.log("SendVideo response:", data);
         toast("workspace name updated successfully");
       } else {
@@ -125,7 +125,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
       }
     } catch (error) {
       console.error("Error sending video:", error);
-      toast("error", error);
+      toast("error", error?.error);
     }
   };
 
@@ -155,7 +155,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
             }),
       });
 
-      if (response.ok) {
+      if (response) {
         console.log("Work space left successfully");
 
         const workspace: workspace = {
@@ -167,15 +167,16 @@ export function WorkSpaceSet(props: WorkspaceProps) {
         // console.log("SendVideo response:", data);
         toast("workspace left successfully");
       } else {
-        const data = await response.json();
-        console.log("error in leaving ", data);
+        // const data = await response.json();
+        console.log("error in leaving ", response);
 
-        toast(data?.error);
+        toast(response?.error);
       }
       setModelOpen(false);
     } catch (error) {
-      console.error("Error leaving Workspace", error);
-      toast("Error leaving Workspace");
+      console.log("Error leaving Workspace", error);
+      // toast("Error leaving Workspace");
+      toast(error?.error);
     }
   };
 
@@ -204,7 +205,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
           }),
       });
 
-      if (response.ok) {
+      if (response) {
         console.log("Work space delete successfully");
 
         const workspace: workspace = {
@@ -216,15 +217,15 @@ export function WorkSpaceSet(props: WorkspaceProps) {
         // console.log("SendVideo response:", data);
         toast("workspace deleted successfully");
       } else {
-        const data = await response.json();
-        console.log("error in deleting workspace ", data);
+        // const data = await response.json();
+        console.log("error in deleting workspace ", response);
 
-        toast(data?.error);
+        toast(response?.error);
       }
       setModelOpen(false);
     } catch (error) {
       console.error("Error deleting Workspace", error);
-      toast("Error deleting Workspace");
+      toast("Error deleting Workspace", error?.error);
     }
   };
   return (

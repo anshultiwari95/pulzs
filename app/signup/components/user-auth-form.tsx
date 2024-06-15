@@ -198,7 +198,7 @@ async function validateInput(data) {
     await schema.parseAsync(data);
     return null;
   } catch (error) {
-    return error.errors
+    return error?.error
       .map((e) => e.message)
       .filter((message) => !message.includes("Required"));
   }
@@ -259,7 +259,7 @@ export function UserAuthForm() {
       //   body: JSON.stringify({ email, password, phonenumber }),
       // });
       const response = await fetchData({
-        url: "/api/registerOrLogin",
+        url: "/registerOrLogin",
         method: "post",
         body: JSON.stringify({ email, password, phonenumber }),
       });
@@ -291,8 +291,8 @@ export function UserAuthForm() {
         toast.error(`${response.message}`);
       }
     } catch (error) {
-      console.error("Error during registration:", error);
-      toast.error("Something went wrong during registration");
+      console.error("Error during registration:", error?.error);
+      toast.error(error?.error);
       setIsLoading(false);
     }
   };
