@@ -42,14 +42,14 @@ export function Inviting(props: WorkspaceProps) {
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response) {
+        // const data = await response.json();
         // console.log("SendVideo response:", data);
         toast("invite send successfully");
       } else {
-        const data = await response.json();
-        console.error("invite not send", data.error);
-        toast("invite send unsuccessfully", data.error);
+        // const data = await response.json();
+        console.error("invite not send", response);
+        toast("invite send unsuccessfully", response);
       }
     } catch (error) {
       console.error("Error sending video:", error);

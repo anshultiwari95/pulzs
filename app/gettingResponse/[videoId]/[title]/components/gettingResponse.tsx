@@ -229,11 +229,11 @@ const GettinResponse = () => {
         method: "get",
         body: null,
       });
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Failed to fetch comments");
       }
-      const data = await response.json();
-      const parentComments = data.comments.filter(
+      // const data = await response.json();
+      const parentComments = response.comments.filter(
         (comment) => !comment.parentCommentId
       );
       console.log("parentComments:", parentComments);
@@ -360,15 +360,15 @@ const GettinResponse = () => {
         ),
       });
 
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Failed to create comment");
       }
 
       // Assuming the response contains the newly created comment
-      const newComment = await response.json();
+      // const newComment = await response.json();
       // fetchComments();
       // You can handle the new comment data as needed
-      console.log("New Comment:", newComment);
+      console.log("New Comment:", response);
       toast.success("New Comment Created");
       // Optionally, you can update the UI to include the new comment
       // For example, update a list of comments using setComments([...comments, newComment]);
@@ -511,7 +511,7 @@ const GettinResponse = () => {
         body: JSON.stringify({ userId, videoId, recipientVideoStatus }),
       });
 
-      if (!response.ok) {
+      if (!response) {
         console.log("Response from status update");
         // Handle non-successful response
         console.error(
@@ -520,12 +520,12 @@ const GettinResponse = () => {
         return;
       }
 
-      const responseData = await response.json();
-      if (responseData) {
-        console.log("response Data from status Update", responseData.Status);
-        setVideoStatus(responseData.Status);
+      // const responseData = await response.json();
+      if (response) {
+        console.log("response Data from status Update", response.Status);
+        setVideoStatus(response.Status);
       }
-      return responseData;
+      return response;
       // Handle the response data if needed
     } catch (error) {
       // Handle errors
@@ -674,7 +674,7 @@ const GettinResponse = () => {
       });
       console.log("response delete comment:", response);
 
-      if (response.ok) {
+      if (response) {
         const comment = comments.find((comment) => comment.id === commentId);
         if (comment) {
           if (!comment.parentCommentId) {

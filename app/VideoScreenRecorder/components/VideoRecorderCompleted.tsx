@@ -104,7 +104,7 @@ const VideoRecorderCompleted = ({ recordedVideoLink }:any) => {
       method: "get",
       body: null
     });
-    const data = await response.json();
+    // const data = await response.json();
     // setSuggestions(data.suggestions);
   };
 

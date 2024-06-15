@@ -43,7 +43,7 @@ const checkAuthentication = async () => {
       body: null
     });
 
-    if (response.ok) {
+    if (response) {
       // Token is valid, user is authenticated
       console.log("Yes authenticated");
 
@@ -55,7 +55,8 @@ const checkAuthentication = async () => {
       return false;
     }
   } catch (error) {
-    console.error("Error checking authentication:", error);
+    console.error("Error checking authentication:", error?.error);
+    // toast(error?.error)
     return false;
   }
 };

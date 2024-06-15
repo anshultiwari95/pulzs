@@ -271,12 +271,12 @@ const Dashboard = () => {
           method: "get",
           body: null,
         });
-        const data = await workspaceData.json();
+        // const data = await workspaceData.json();
 
-        setAllWorkspaces(data.workspaces);
+        setAllWorkspaces(workspaceData.workspaces);
 
-        if (!selectWorkspace || selectWorkspace.workspace_id == "") {
-          setSelectWorkspace(data.workspaces[0]);
+        if (!selectWorkspace || selectWorkspace?.workspace_id == "") {
+          setSelectWorkspace(workspaceData.workspaces[0]);
         }
       } catch (ex) {
         console.log("ex from workspace", ex);
@@ -365,11 +365,11 @@ const Dashboard = () => {
         }),
       });
 
-      if (response.ok) {
+      if (response) {
         // console.log("Video sent successfully!");
-        const data = await response.json();
-        const recipients = data.recipients;
-        console.log("SendVideo response:", data);
+        // const data = await response.json();
+        const recipients = response.recipients;
+        console.log("SendVideo response:", response);
         toast.success("Video Sent");
         socket.emit("sendVideo", {
           recipients,
@@ -377,8 +377,8 @@ const Dashboard = () => {
         });
       } else {
         console.error("Failed to send video.");
-        const data = await response.json();
-        console.error("Error response:", data);
+        // const data = await response.json();
+        console.error("Error response:", response);
       }
     } catch (error) {
       console.error("Error sending video:", error);
@@ -402,9 +402,9 @@ const Dashboard = () => {
           method: "get",
           body: null,
         });
-        const data = await response.json();
+        // const data = await response.json();
         // console.log("user videos in db", data);
-        setUserVideos(data);
+        setUserVideos(response);
       } else {
         console.error("No active session");
       }
@@ -426,11 +426,11 @@ const Dashboard = () => {
           body: null,
         });
 
-        const data = await response.json();
+        // const data = await response.json();
         // console.log("recieved videos in db", data);
 
         // if (response.ok) {
-        setRecievedVideos(data);
+        setRecievedVideos(response);
 
         // } else {
         //   console.error(data.error || "Error fetching video details");
@@ -462,12 +462,12 @@ const Dashboard = () => {
 
     try {
       const response = await fetchData({
-        url: "http://localhost:8080/api/deletevideo",
+        url: "/deletevideo",
         method: "post",
         body: JSON.stringify({ videoId }),
       });
 
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Failed to delete video");
       }
       // console.log("isRecievedVideo dashboard", isRecievedVideo);
@@ -489,7 +489,7 @@ const Dashboard = () => {
         // setUserVideos(updatedUserVideos);
       }
 
-      const data = await response.json();
+      // const data = await response.json();
       toast.success("Video Deleted Successfully");
       // await fetchUserVideos();
       // await fetchRecievedVideos();
