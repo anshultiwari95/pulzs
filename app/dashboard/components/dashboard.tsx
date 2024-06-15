@@ -20,13 +20,18 @@ const ScreenAndAudioRecorder = dynamic(
   { ssr: false }
 );
 
-import { Button } from "ui/components/button";
-import { Sidebar } from "ui/components/sidebar";
-import { Input } from "ui/components/input";
-import { BorderLessInput } from "ui/components/borderlessinput";
-import { Icons } from "ui/components/icons";
-import { Label } from "ui/components/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "ui/components/tabs";
+import { Button } from "../../components/button";
+import { Sidebar } from "../../components/sidebar";
+import { Input } from "../../components/input";
+import { BorderLessInput } from "../../components/borderlessinput";
+import { Icons } from "../../components/icons";
+import { Label } from "../../components/label";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../../components/tabs";
 import {
   Dialog,
   DialogContent,
@@ -44,17 +49,17 @@ import { MyContextProvider, useMyContext } from "../../../context/MyContext";
 import MyPulzePage from "../sideComponents/MyPulzeComponent";
 import ActivityPage from "../sideComponents/ActivityComponent";
 
-import {fetchData} from "../../utils/axios";
+import { fetchData } from "../../utils/axios";
 // import { Popover } from "ui/components/popover";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "ui/components/dropdown";
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from "ui/components/dropdown";
 import ToggleButton from "./toggleButton";
 
 import { Disc2, Link, Mic, MicOff, Send, Video, VideoOff } from "lucide-react";
@@ -262,9 +267,9 @@ const Dashboard = () => {
         //   `http://localhost:8080/api/get-workspace-by-user?user_id=${userId}`
         // );
         const workspaceData = await fetchData({
-          url:`/get-workspace-by-user?user_id=${userId}`,
+          url: `/get-workspace-by-user?user_id=${userId}`,
           method: "get",
-          body: null
+          body: null,
         });
         const data = await workspaceData.json();
 
@@ -341,7 +346,8 @@ const Dashboard = () => {
       //     workspaceId: selectWorkspace?.workspace_id,
       //   }),
       // });
-      const response = await fetchData({url:"/sendVideo",
+      const response = await fetchData({
+        url: "/sendVideo",
         method: "post",
         body: JSON.stringify({
           senderId: userId,
@@ -392,9 +398,9 @@ const Dashboard = () => {
         // );
 
         const response = await fetchData({
-          url:`/getvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`,
+          url: `/getvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`,
           method: "get",
-          body: null
+          body: null,
         });
         const data = await response.json();
         // console.log("user videos in db", data);
@@ -415,9 +421,9 @@ const Dashboard = () => {
         // );
 
         const response = await fetchData({
-            url: `/recievedvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`,
-            method: "get",
-            body: null
+          url: `/recievedvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`,
+          method: "get",
+          body: null,
         });
 
         const data = await response.json();
@@ -455,9 +461,10 @@ const Dashboard = () => {
     // console.log("entered handleDeleteVideo");
 
     try {
-      const response = await fetchData({url:"http://localhost:8080/api/deletevideo",
+      const response = await fetchData({
+        url: "http://localhost:8080/api/deletevideo",
         method: "post",
-        body: JSON.stringify({ videoId })
+        body: JSON.stringify({ videoId }),
       });
 
       if (!response.ok) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "ui/components/button";
+import { Button } from "../../components/button";
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ import { FaPlus } from "react-icons/fa";
 import { WorkspaceProps } from "../../dashboard/components/DropDown";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
-import {fetchData} from "../../utils/axios"
+import { fetchData } from "../../utils/axios";
 export function CreatingWorkspace(props: WorkspaceProps) {
   const [workspaceName, setWorkspaceName] = useState("");
   const [openModel, setOpenModel] = useState(false);
@@ -42,10 +42,10 @@ export function CreatingWorkspace(props: WorkspaceProps) {
       const response = await fetchData({
         url: "/create-new-workspace",
         method: "post",
-          body: JSON.stringify({
-            workspace_name: workspaceName,
-            creater_id: userId,
-          }),
+        body: JSON.stringify({
+          workspace_name: workspaceName,
+          creater_id: userId,
+        }),
       });
 
       if (response.ok) {

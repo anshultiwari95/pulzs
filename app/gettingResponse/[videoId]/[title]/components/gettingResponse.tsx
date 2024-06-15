@@ -20,12 +20,17 @@ const ScreenAndAudioRecorder = dynamic(
 );
 import Image from "next/image";
 import VideoPlayer from "./VideoPlayer";
-import { Button } from "ui";
-import { Icons } from "ui/components/icons";
-import { Checkbox } from "ui/components/checkbox";
-import { Textarea } from "ui/components/textarea";
+import { Button } from "../../../../components/button";
+import { Icons } from "../../../../components/icons";
+import { Checkbox } from "../../../../components/checkbox";
+import { Textarea } from "../../../../components/textarea";
 
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "ui/components/tabs";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "../../../../components/tabs";
 import ToggleButton from "../../../../dashboard/components/toggleButton";
 // import ToggleButton from "../../../VideoScreenRecorder/components/toggleButton";
 
@@ -57,7 +62,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import {fetchData} from "../../../../utils/axios";
+import { fetchData } from "../../../../utils/axios";
 interface User {
   id: string;
   name: string;
@@ -222,7 +227,7 @@ const GettinResponse = () => {
       const response = await fetchData({
         url: `/comments/${videoId}`,
         method: "get",
-        body: null
+        body: null,
       });
       if (!response.ok) {
         throw new Error("Failed to fetch comments");
@@ -351,12 +356,9 @@ const GettinResponse = () => {
         url: `/comments/createcomment/${videoId}`,
         method: "post",
         body: JSON.stringify(
-            parentCommentId
-              ? replyCommentRequestBody
-              : topLevelCommentRequestBody
-          ),
-        }
-      );
+          parentCommentId ? replyCommentRequestBody : topLevelCommentRequestBody
+        ),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to create comment");
@@ -507,7 +509,7 @@ const GettinResponse = () => {
         url: "/updateRecipientStatus",
         method: "post",
         body: JSON.stringify({ userId, videoId, recipientVideoStatus }),
-    });
+      });
 
       if (!response.ok) {
         console.log("Response from status update");
@@ -617,8 +619,8 @@ const GettinResponse = () => {
     const formattedDate = isToday(parsedDate)
       ? formatDistanceToNow(parsedDate, { addSuffix: true })
       : isYesterday(parsedDate)
-        ? `Yesterday ${formatDistanceToNow(parsedDate, { addSuffix: true })}`
-        : formatDistanceToNow(parsedDate, { addSuffix: true });
+      ? `Yesterday ${formatDistanceToNow(parsedDate, { addSuffix: true })}`
+      : formatDistanceToNow(parsedDate, { addSuffix: true });
     return formattedDate;
   };
 
@@ -666,9 +668,9 @@ const GettinResponse = () => {
       //   }
       // );
       const response = await fetchData({
-          url: `/comments/deletecomment/${commentId}`,
-          method: "post", 
-          body:null
+        url: `/comments/deletecomment/${commentId}`,
+        method: "post",
+        body: null,
       });
       console.log("response delete comment:", response);
 
@@ -883,7 +885,13 @@ const GettinResponse = () => {
                         </header>
                         <section className={`w-full mt-2   `}>
                           <div
-                            className={`flex gap-1   ${comment.timeStamp != null ? `ml-8` : `ml-8`} ${comment.type === "video" ? `flex flex-col` : `items-center`}`}
+                            className={`flex gap-1   ${
+                              comment.timeStamp != null ? `ml-8` : `ml-8`
+                            } ${
+                              comment.type === "video"
+                                ? `flex flex-col`
+                                : `items-center`
+                            }`}
                           >
                             {comment.timeStamp != null &&
                               comment.timeStamp != "null" && (
@@ -975,7 +983,13 @@ const GettinResponse = () => {
                             </header>{" "}
                             <section className="w-full mt-2  ">
                               <div
-                                className={`flex gap-2 h-full ${comment.timeStamp != null ? `ml-7` : `ml-7`} ${comment.type === "video" ? `flex flex-col` : null}`}
+                                className={`flex gap-2 h-full ${
+                                  comment.timeStamp != null ? `ml-7` : `ml-7`
+                                } ${
+                                  comment.type === "video"
+                                    ? `flex flex-col`
+                                    : null
+                                }`}
                               >
                                 {reply.timeStamp != "null" &&
                                   reply.timeStamp != null && (
@@ -1832,8 +1846,8 @@ const GettinResponse = () => {
                       typeComment === "text"
                         ? handleCreateComment
                         : typeComment === "video"
-                          ? handleCreateVideoComment
-                          : handleCreateComment
+                        ? handleCreateVideoComment
+                        : handleCreateComment
                     }
                     className="bg-violet-600 hover:bg-violet-700 mb-4 w-2/5 "
                     disabled={!mainCommentPostButtonShow}

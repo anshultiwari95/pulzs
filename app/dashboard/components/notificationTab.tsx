@@ -1,6 +1,6 @@
 // "use client";
 import React from "react";
-import { Input } from "ui/components";
+//import { Input } from "ui/components";
 import { AvatarDemo } from "./avatar";
 import SuccessIcon from "../../../icons/SuccessIcon";
 import LinkIcon from "../../../icons/LinkIcon";
@@ -12,23 +12,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "ui/components/dropdown";
+} from "../../components/dropdown";
 import { formattedDate } from "../../utils/formattedDate";
 import { formatToDays } from "../utils/formateDateToSmallDay";
 
 import { ChevronDown, Link, Send, UserPlus } from "lucide-react";
-import { Button } from "ui";
+import { Button } from "../../components/button";
 import { useRouter } from "next/navigation";
-import { formatDistanceToNow, isToday, isYesterday, parseISO } from "date-fns";
+//import { formatDistanceToNow, isToday, isYesterday, parseISO } from "date-fns";
 import { useSession } from "next-auth/react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "ui/components/dialog";
-import { BorderLessInput } from "ui/components/borderlessinput";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogHeader,
+//   DialogTitle,
+//   DialogTrigger,
+// } from "ui/components/dialog";
+//import { BorderLessInput } from "ui/components/borderlessinput";
 import AutoComplete from "./Autocomplete";
 import { ReadyToShareDialog } from "./ReadyToShareDialog";
 

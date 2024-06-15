@@ -43,7 +43,11 @@ const UserList: React.FC<UserListProps> = ({
   const userId = session?.user.id;
   return (
     <div
-      className={`flex flex-col justify-center items-center gap-2 px-1 bg-red-500 py-2  ${users.length > 2 ? "max-h-[120px] overflow-x-hidden  overflow-y-auto" : ""}`}
+      className={`flex flex-col justify-center items-center gap-2 px-1 bg-red-500 py-2  ${
+        users.length > 2
+          ? "max-h-[120px] overflow-x-hidden  overflow-y-auto"
+          : ""
+      }`}
     >
       {users.map((user, index) => (
         <li

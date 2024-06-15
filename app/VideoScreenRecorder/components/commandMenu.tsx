@@ -8,7 +8,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "ui/components/command";
+} from "../../components/command";
 
 export function CommandMenu() {
   const [open, setOpen] = React.useState(false);

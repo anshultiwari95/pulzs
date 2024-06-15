@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox } from "ui/components/checkbox";
+import { Checkbox } from "../../../../components/checkbox";
 
 interface TimeStampProps {
   currentTime: string | null;

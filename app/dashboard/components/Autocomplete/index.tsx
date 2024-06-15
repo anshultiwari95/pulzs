@@ -13,13 +13,13 @@ import Container from "./components/Container";
 import UserSearch from "./components/Search";
 import UserList from "./components/User";
 // import { DatePickerWithPresets } from "ui/components/datepicker";
-import { DateTimePicker } from "ui/components/date-time-picker/date-time-picker";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "ui/components/tabs";
+import { DateTimePicker } from "../../../components/date-time-picker/date-time-picker";
+//import { Tabs, TabsList, TabsTrigger, TabsContent } from "ui/components/tabs";
 import { Clock } from "lucide-react";
 import { useSession } from "next-auth/react";
 
-import Workspace from "../dashboard";
-import {fetchData} from "../../../utils/axios";
+//import Workspace from "../dashboard";
+import { fetchData } from "../../../utils/axios";
 // import { Workspace } from "@prisma/client";
 interface DateFieldState {
   year?: number;
@@ -75,11 +75,10 @@ export default function AutoComplete({
       const workspaceId = "1bd89f4c-36eb-4411-9232-acb129219e8f";
       const query = encodeURIComponent(searchQuery);
       const response = await fetchData({
-          url: `/videorecordercompleted/search?workspaceId=${selectWorkspace.workspace_id}&query=${query}&userIdToRemove=${userId}`,
-          method: "get",
-          body: JSON.stringify({ userId }),
-        }
-      );
+        url: `/videorecordercompleted/search?workspaceId=${selectWorkspace.workspace_id}&query=${query}&userIdToRemove=${userId}`,
+        method: "get",
+        body: JSON.stringify({ userId }),
+      });
 
       if (response.ok) {
         const data = await response.json();

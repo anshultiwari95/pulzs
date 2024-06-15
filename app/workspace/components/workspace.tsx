@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Input } from "ui/components/input";
-import { Button } from "ui/components/button";
+import { Input } from "../../components/input";
+import { Button } from "../../components/button";
 
 const WorkspaceSettingsPopup = () => {
   const [activeTab, setActiveTab] = useState("general");

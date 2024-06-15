@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "ui/components/button";
+import { Button } from "../../components/button";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,7 @@ import { MdGroupAdd } from "react-icons/md";
 import { workspace } from "../../dashboard/components/dashboard";
 import { WorkspaceProps } from "../components/DropDown";
 import toast from "react-hot-toast";
-import {fetchData} from "../../utils/axios";
+import { fetchData } from "../../utils/axios";
 export function Inviting(props: WorkspaceProps) {
   const [inviteEmail, setInviteEmail] = useState("");
   const [openModel, setOpenModel] = useState(false);
@@ -34,14 +34,13 @@ export function Inviting(props: WorkspaceProps) {
       //   }
       // );
       const response = await fetchData({
-          url: "/add-workspace-members",
-          method: "post",
-          body: JSON.stringify({
-              workspace_id: props.selectedWorkspace?.workspace_id,
-              user_email: inviteEmail,
-            }),
-          }
-        );
+        url: "/add-workspace-members",
+        method: "post",
+        body: JSON.stringify({
+          workspace_id: props.selectedWorkspace?.workspace_id,
+          user_email: inviteEmail,
+        }),
+      });
 
       if (response.ok) {
         const data = await response.json();

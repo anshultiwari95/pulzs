@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "ui/components//avatar";
+//import { Avatar, AvatarFallback, AvatarImage } from "ui/components//avatar";
 interface AvatarDemoProps {
   imageUrl?: string;
 }

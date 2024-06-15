@@ -18,11 +18,11 @@ const ScreenAndAudioRecorder = dynamic(
   { ssr: false }
 );
 
-import { Button } from "ui/components/button";
-import { Sidebar } from "ui/components/sidebar";
-import { BorderLessInput } from "ui/components/borderlessinput";
-import { Icons } from "ui/components/icons";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "ui/components/tabs";
+import { Button } from "../components/button";
+import { Sidebar } from "../components/sidebar";
+import { BorderLessInput } from "../components/borderlessinput";
+import { Icons } from "../components/icons";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/tabs";
 
 import {
   Dialog,
@@ -34,7 +34,7 @@ import {
   DialogTrigger,
   X,
   DialogOverlay,
-} from "ui/components/dialog";
+} from "../components/dialog";
 
 import { MyContextProvider, useMyContext } from "../../context/MyContext";
 
@@ -47,7 +47,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "ui/components/dropdown";
+} from "../components/dropdown";
 import ToggleButton from "./components/toggleButton";
 import { Disc2, Mic, MicOff, Video, VideoOff } from "lucide-react";
 import { log } from "console";

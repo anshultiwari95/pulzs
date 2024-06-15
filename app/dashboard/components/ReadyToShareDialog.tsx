@@ -2,15 +2,15 @@
 import { Link, Send, UserPlus } from "lucide-react";
 import { title } from "process";
 import React, { useEffect, useRef, useState } from "react";
-import { Button } from "ui";
-import { BorderLessInput } from "ui/components/borderlessinput";
+import { Button } from "../../components/button";
+import { BorderLessInput } from "../../components/borderlessinput";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "ui/components/dialog";
+} from "../../components/dialog";
 import AutoComplete from "./Autocomplete";
 
 import { User as UserType } from "../../../types";

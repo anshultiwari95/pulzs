@@ -1,4 +1,4 @@
-import { Button } from "ui/components/button";
+import { Button } from "../../components/button";
 import {
   Dialog,
   DialogContent,
@@ -7,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "ui/components/dialog";
-import { Input } from "ui/components/input";
-import { Label } from "ui/components/label";
+} from "../../components/dialog";
+import { Input } from "../../components/input";
+import { Label } from "../../components/label";
 import FlaggIcon from "../../../icons/FlaggIcon";
 import { FaPlus } from "react-icons/fa";
 import { signOut } from "next-auth/react";

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "ui/components/button";
+import { Button } from "../../components/button";
 
 interface ToggleButtonProps {
   icon1: JSX.Element;
