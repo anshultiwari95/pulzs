@@ -10,7 +10,7 @@ import { useMyContext } from "../../../context/MyContext";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 
-import {fetchData} from "../utils/axios"
+import {fetchData} from "../../utils/axios"
 const ScreenAndAudioRecorder = forwardRef((props, ref) => {
   const {
     title,
@@ -22,13 +22,6 @@ const ScreenAndAudioRecorder = forwardRef((props, ref) => {
     videoId,
     selectWorkspace,
   } = props;
-  console.log(`title:${title}`);
-  console.log(`description:${description}`);
-  console.log(`VideoId:${videoId}`);
-  console.log("Requestbody from ScreenAndAudioRecorder", requestBody);
-  console.log(`typecomment1:${typeComment1}`);
-  console.log("saveVideoAfterStopRecording", saveVideoAfterStopRecordingOrNot);
-
   const [resultVideosrc, setResultVideosrc] = useState("hlo");
   const [isRecording, setIsRecording] = useState(false);
   const [shouldVideoVisible, setVideoVisible] = useState(false);

@@ -247,15 +247,8 @@ export function UserAuthForm() {
           )
         : null,
     });
-
-    // if (emailError || passwordError || phoneNumberError) {
-    //   toast.error(emailError || passwordError || phoneNumberError);
-    //   return;
-    // }
-
     try {
       console.log("signup entered");
-
       setIsLoading(true);
       // Call your API endpoint for registration
       // const response = await fetch("/api/signup", {
@@ -266,15 +259,13 @@ export function UserAuthForm() {
       //   body: JSON.stringify({ email, password, phonenumber }),
       // });
       const response = await fetchData({
-        url: "/api/signup",
+        url: "/api/registerOrLogin",
         method: "post",
         body: JSON.stringify({ email, password, phonenumber }),
       });
-      console.log("response:", response);
-      // if (response.ok) {
-      const responseData = await response.json();
-      console.log("responseData:", responseData);
-      if (responseData.success) {
+      // const responseData = await response.json();
+      
+      if (response) {
         // Registration successful, sign in the user
         await signIn("credentials", {
           email: email,
@@ -283,8 +274,9 @@ export function UserAuthForm() {
           redirect: false,
           // Add other necessary fields if needed
         });
+        console.log("response success");
         setIsLoading(false);
-        toast.success(responseData.message);
+        toast.success(response.message);
 
         // Registration successful, redirect to dashboard
         router.push("/dashboard");
@@ -296,7 +288,7 @@ export function UserAuthForm() {
         // const errorData = await response.json();
         // console.log("error data:", errorData);
 
-        toast.error(`${responseData.message}`);
+        toast.error(`${response.message}`);
       }
     } catch (error) {
       console.error("Error during registration:", error);

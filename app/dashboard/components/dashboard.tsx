@@ -66,8 +66,6 @@ import { io } from "socket.io-client";
 import toast from "react-hot-toast";
 import DropDown from "./DropDown";
 import Account from "./Account";
-
-import { fetchData } from "../../utils/axios";
 // import { VideoScreenRecorder } from "../VideoScreenRecorder/components/VideoScreenRecorderRest";
 // import MyTabs from "./components/tabs";
 interface ReceivedVideo {

@@ -7,14 +7,13 @@ import React, {
   useImperativeHandle,
 } from "react";
 import RecordRTC from "recordrtc";
-import axios from "axios";
 import { useState } from "react";
 
 import { useMyContext } from "../../../context/MyContext";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 
-import {fetchData} from "../utils/axios"
+import {fetchData} from "../../utils/axios"
 
 const VideoScreenRecorder = forwardRef((props, ref) => {
   const {

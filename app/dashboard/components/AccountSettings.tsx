@@ -1,4 +1,4 @@
-import { Button } from "ui/components/button";
+import { Button } from "../../components/button";
 import { BsPersonAdd } from "react-icons/bs";
 import {
   Dialog,
