@@ -1,22 +1,20 @@
-import { Button } from "ui/components/button";
+import { Button } from "../../components/button";
 import { AvatarDemo } from "../../dashboard/components/avatar";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "ui/components/dialog";
-import { Input } from "ui/components/input";
+} from "../../components/dialog";
+import { Input } from "../../components/input";
 import { IoMdSettings } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { workspace } from "../../dashboard/components/dashboard";
 import toast from "react-hot-toast";
 import { WorkspaceProps } from "../../dashboard/components/DropDown";
 import { useSession } from "next-auth/react";
-
+import {fetchData} from "../../utils/axios"
 export interface WorkspaceMember {
   id: string;
   name: string;
@@ -48,9 +46,14 @@ export function WorkSpaceSet(props: WorkspaceProps) {
   const fetchWorkspaceMember = async () => {
     if (props.selectedWorkspace?.workspace_id) {
       try {
-        const workspaceMemberData = await fetch(
-          `http://localhost:8080/api/get-workspace-members?workspace_id=${props.selectedWorkspace?.workspace_id}`
-        );
+        // const workspaceMemberData = await fetch(
+        //   `http://localhost:8080/api/get-workspace-members?workspace_id=${props.selectedWorkspace?.workspace_id}`
+        // );
+        const workspaceMemberData = await fetchData({
+            url: `/get-workspace-members?workspace_id=${props.selectedWorkspace?.workspace_id}`,
+            body: null,
+            method: 'get'
+          });
         const data = await workspaceMemberData.json();
         setWorkspaceMembers(data.workspaceMembers);
         console.log("selectWorkspaceMembers", workspaceMembers);
@@ -64,8 +67,11 @@ export function WorkSpaceSet(props: WorkspaceProps) {
   const fetchWorkspace = async () => {
     if (props.selectedWorkspace?.workspace_id) {
       try {
-        const workspaceData = await fetch(
-          `http://localhost:8080/api/get-workspace?workspace_id=${props.selectedWorkspace?.workspace_id}`
+        const workspaceData = await fetchData({
+          url:`/get-workspace?workspace_id=${props.selectedWorkspace?.workspace_id}`,
+          body: null,
+          method: 'get'
+        }
         );
         const data = await workspaceData.json();
         setWorkspace(data.workspace);
@@ -83,19 +89,28 @@ export function WorkSpaceSet(props: WorkspaceProps) {
 
   const updateWorkspaceName = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/update-workspace-name",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      // const response = await fetch(
+      //   "http://localhost:8080/api/update-workspace-name",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       workspace_id: props.selectedWorkspace?.workspace_id,
+      //       workspaceName: workspaceName,
+      //     }),
+      //   }
+      // );
+
+      const response = await fetchData({
+          url: `/update-workspace-name`,
+          method: 'post',
           body: JSON.stringify({
-            workspace_id: props.selectedWorkspace?.workspace_id,
-            workspaceName: workspaceName,
-          }),
-        }
-      );
+              workspace_id: props.selectedWorkspace?.workspace_id,
+              workspaceName: workspaceName,
+            }),
+          });
 
       if (response.ok) {
         const data = await response.json();
@@ -117,19 +132,28 @@ export function WorkSpaceSet(props: WorkspaceProps) {
   const leaveWorkspace = async () => {
     try {
       console.log("leave workspace");
-      const response = await fetch(
-        "http://localhost:8080/api/leave-workspace",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      // const response = await fetch(
+      //   "http://localhost:8080/api/leave-workspace",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       workspace_id: props.selectedWorkspace?.workspace_id,
+      //       user_id: userId,
+      //     }),
+      //   }
+      // );
+
+      const response = await fetchData({
+          url: "/leave-workspace",
+          method: "post",
           body: JSON.stringify({
-            workspace_id: props.selectedWorkspace?.workspace_id,
-            user_id: userId,
-          }),
-        }
-      );
+              workspace_id: props.selectedWorkspace?.workspace_id,
+              user_id: userId,
+            }),
+      });
 
       if (response.ok) {
         console.log("Work space left successfully");
@@ -158,19 +182,27 @@ export function WorkSpaceSet(props: WorkspaceProps) {
   const deleteWorkspace = async () => {
     try {
       console.log("delete workspace");
-      const response = await fetch(
-        "http://localhost:8080/api/delete-workspace",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+      // const response = await fetch(
+      //   "http://localhost:8080/api/delete-workspace",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       workspace_id: props.selectedWorkspace?.workspace_id,
+      //       user_id: userId,
+      //     }),
+      //   }
+      // );
+      const response = await fetchData({
+        url: "/delete-workspace",
+        method: "post",
+        body: JSON.stringify({
             workspace_id: props.selectedWorkspace?.workspace_id,
             user_id: userId,
           }),
-        }
-      );
+      });
 
       if (response.ok) {
         console.log("Work space delete successfully");

@@ -1,143 +1,3 @@
-// "use client";
-
-// import * as React from "react";
-
-// import { cn } from "ui/lib/utils";
-// import { Button, Label, Input, Icons } from "ui";
-// import { useMutation, gql } from "@apollo/client";
-// import { useEffect, useState } from "react";
-// // import { Icons } from "@/components/icons"
-// // import { Button } from "@/registry/new-york/ui/button"
-// // import { Input } from "@/registry/new-york/ui/input"
-// // import { Label } from "@/registry/new-york/ui/label"
-
-// const SIGNUP_MUTATION = gql`
-//   mutation Signup($email: String!, $password: String!) {
-//     signup(email: $email, password: $password)
-//   }
-// `;
-
-// interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-// export function UserAuthForm({  classNameName, ...props }: UserAuthFormProps) {
-//   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [token, setToken] = useState("");
-
-//   const [signup] = useMutation(SIGNUP_MUTATION, {
-//     onCompleted: (data) => {
-//       // const token = data.signup;
-//       // // Store token or perform necessary actions
-//       // setToken(token);
-//       console.log("signup done");
-//     },
-//     onError: (error) => {
-//       console.error("Signup failed:", error);
-//     },
-//   });
-
-//   // const [signup] = useMutation(SIGNUP_MUTATION);
-
-//   async function onSubmit(event: React.SyntheticEvent) {
-//     event.preventDefault();
-//     setIsLoading(true);
-//     // try {
-//     try {
-//       await signup({
-//         variables: { email, password },
-//       });
-//     } catch (error) {
-//       console.error("Signup failed:", error.message);
-//     }
-
-//     // });
-//     // Store the JWT token securely in the browser (e.g., localStorage or a cookie)
-//     // console.log("JWT Token:", data.signup);
-//     // Redirect the user to a protected route or perform other actions.
-//     // } catch (error) {
-//     //   console.error("Signup Failed:", error.message);
-//     // }
-
-//     // signup({ variables: { email, password } });
-
-//     // setTimeout(() => {
-//     setIsLoading(false);
-//     // }, 3000);
-//   }
-
-//   // useEffect(() => {
-//   //   if (token) {
-//   //     localStorage.setItem("authToken", token);
-//   //   }
-//   // }, [token]);
-
-//   return (
-//     <div  classNameName={cn("grid gap-6",  classNameName)} {...props}>
-//       <form onSubmit={onSubmit}>
-//         <div  classNameName="grid gap-2">
-//           <div  classNameName="grid gap-1">
-//             <Label  classNameName="" htmlFor="email">
-//               Email
-//             </Label>
-//             <Input
-//               id="email"
-//               placeholder="name@example.com"
-//               type="email"
-//               autoCapitalize="none"
-//               autoComplete="email"
-//               autoCorrect="off"
-//               disabled={isLoading}
-//               value={email}
-//               onChange={(e) => setEmail(e.target.value)}
-//             />
-//             <Label  classNameName="mt-2" htmlFor="password">
-//               Password
-//             </Label>
-//             <Input
-//               id="password"
-//               placeholder="password"
-//               type="password"
-//               autoCapitalize="none"
-//               autoComplete="password"
-//               autoCorrect="off"
-//               disabled={isLoading}
-//               value={password}
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-//           </div>
-//           <Button
-//             disabled={isLoading}
-//             //  onClick={onSubmit}
-//           >
-//             {/* {isLoading && (
-//               // <Icons.spinner  classNameName="mr-2 h-4 w-4 animate-spin" />
-//             )} */}
-//             Sign In with Email
-//           </Button>
-//         </div>
-//       </form>
-//       <div  classNameName="relative">
-//         <div  classNameName="absolute inset-0 flex items-center">
-//           <span  classNameName="w-full border-t" />
-//         </div>
-//         <div  classNameName="relative flex justify-center text-xs uppercase">
-//           <span  classNameName="bg-background px-2 text-muted-foreground">
-//             Or continue with
-//           </span>
-//         </div>
-//       </div>
-//       <Button variant="outline" type="button" disabled={isLoading}>
-//         {/* {isLoading ? (
-//           <Icons.spinner  classNameName="mr-2 h-4 w-4 animate-spin" />
-//         ) : (
-//           <Icons.gitHub  classNameName="mr-2 h-4 w-4" />
-//         )}{" "} */}
-//         Github
-//       </Button>
-//     </div>
-//   );
-// }
 "use client";
 import * as React from "react";
 
@@ -146,33 +6,18 @@ import { useEffect, useState } from "react";
 import { Label } from "../../components/label";
 import { Input } from "../../components/input";
 
-//import { Button } from "ui";
-// import { useMutation, gql } from "@apollo/client";
 import { redirect, useRouter } from "next/navigation";
-//import { cn } from "ui/lib/utils";
 import { signIn, useSession } from "next-auth/react";
-
-import SigninButton from "../../../components/SigninButton";
 import toast from "react-hot-toast";
-import axios from "axios";
-import router from "next/router";
 import { Session } from "next-auth";
 import { z } from "zod";
-import { error } from "console";
-// type Response = {
-//   messsage: string;
-//   ok: string;
-//   response: Response;
-// };
+import {fetchData} from "../../utils/axios"
 interface ApiResponse {
   ok: boolean;
   success?: boolean; // This is optional, as it might not always be present
   error?: string; // This is optional, as it might not always be present
   // Add other properties as needed
 }
-// interface CustomSession extends NextAuthSession {
-//   status?: string; // Add the 'status' property
-// }
 
 const schema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -241,12 +86,13 @@ export function UserAuthForm() {
       // }
       setIsLoading(true);
       // Call your API endpoint for registration
-      const response = await fetch("/api/login", {
-        method: "POST",
+      const response = await fetchData({
+        url: "/registerOrLogin",
+        body: JSON.stringify({ email, password }),
+        method: "post",
         headers: {
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+        }
       });
       console.log("response:", response);
       // if (response.ok) {

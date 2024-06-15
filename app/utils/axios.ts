@@ -5,11 +5,10 @@ interface axiosProps {
   body: any;
   headers?: any;
 }
-
-// const BASE_URL = 'https://api.nitro.testnet.routerprotocol.com/intro-periphery/';
-const BASE_URL = "http://localhost:8080/api/"
-export async function fetchData<T = unknown>({ url, body, method, headers = null }: axiosProps): Promise<T> {
+const BASE_URL = "https://pulze-backend.onrender.com/api"
+export async function fetchData<T = unknown>({ url, body, method, headers = null }: axiosProps): Promise<any> {
   url = BASE_URL + url;
+  console.log("url", url)
   if (!headers) {
     headers = {
       'Content-Type': 'application/json',

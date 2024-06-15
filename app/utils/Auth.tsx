@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-
+import {fetchData} from "../utils/axios"
 // // Function to check if the user is authenticated
 const checkAuthentication = async () => {
   // const token = localStorage.getItem("token");
@@ -26,16 +26,22 @@ const checkAuthentication = async () => {
   }
 
   try {
-    const response = await fetch(
-      "http://localhost:8080/api/authenticateToken",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token,
-        },
-      }
-    );
+    // const response = await fetch(
+    //   "http://localhost:8080/api/authenticateToken",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "x-access-token": token,
+    //     },
+    //   }
+    // );
+
+    const response = await fetchData({
+      url: "/authenticateToken",
+      method: "post",
+      body: null
+    });
 
     if (response.ok) {
       // Token is valid, user is authenticated

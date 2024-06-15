@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
-
+import {fetchData} from "../utils/axios";
 export default function Register() {
   const [data, setData] = useState({
     name: "",
@@ -20,11 +20,16 @@ export default function Register() {
     //   .catch(() => toast.error("Something went wrong!"));
     try {
       // Call your API endpoint for registration
-      const response = await fetch("/api/registerorlogin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      // const response = await fetch("/api/registerorlogin", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(data),
+      // });
+
+      const response = await fetchData({url: "/api/registerorlogin",
+        method: "post",
         body: JSON.stringify(data),
       });
 

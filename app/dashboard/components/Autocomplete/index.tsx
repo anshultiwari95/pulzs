@@ -19,6 +19,7 @@ import { Clock } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 import Workspace from "../dashboard";
+import {fetchData} from "../../../utils/axios";
 // import { Workspace } from "@prisma/client";
 interface DateFieldState {
   year?: number;
@@ -73,14 +74,10 @@ export default function AutoComplete({
     try {
       const workspaceId = "1bd89f4c-36eb-4411-9232-acb129219e8f";
       const query = encodeURIComponent(searchQuery);
-      const response = await fetch(
-        `http://localhost:8080/api/videorecordercompleted/search?workspaceId=${selectWorkspace.workspace_id}&query=${query}&userIdToRemove=${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          // body: JSON.stringify({ userId }),
+      const response = await fetchData({
+          url: `/videorecordercompleted/search?workspaceId=${selectWorkspace.workspace_id}&query=${query}&userIdToRemove=${userId}`,
+          method: "get",
+          body: JSON.stringify({ userId }),
         }
       );
 

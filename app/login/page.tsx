@@ -156,8 +156,7 @@ export const metadata: Metadata = {
   description: "Authentication forms built using the components.",
 };
 import CaughtIcon from "../../icons/FigmaIcon";
-import SigninButton from "../../components/SigninButton";
-import dynamic from "next/dynamic";
+import SigninButton from "../../components/SigninButton";;
 
 const LogIn = () => {
   return (

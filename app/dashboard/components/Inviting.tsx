@@ -8,30 +8,40 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "ui/components/dialog";
-import { Input } from "ui/components/input";
+} from "../../components/dialog";
+import { Input } from "../../components/input";
 import { MdGroupAdd } from "react-icons/md";
 import { workspace } from "../../dashboard/components/dashboard";
 import { WorkspaceProps } from "../components/DropDown";
 import toast from "react-hot-toast";
+import {fetchData} from "../../utils/axios";
 export function Inviting(props: WorkspaceProps) {
   const [inviteEmail, setInviteEmail] = useState("");
   const [openModel, setOpenModel] = useState(false);
   const addMember = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/add-workspace-members",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      // const response = await fetch(
+      //   "http://localhost:8080/api/add-workspace-members",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       workspace_id: props.selectedWorkspace?.workspace_id,
+      //       user_email: inviteEmail,
+      //     }),
+      //   }
+      // );
+      const response = await fetchData({
+          url: "/add-workspace-members",
+          method: "post",
           body: JSON.stringify({
-            workspace_id: props.selectedWorkspace?.workspace_id,
-            user_email: inviteEmail,
-          }),
-        }
-      );
+              workspace_id: props.selectedWorkspace?.workspace_id,
+              user_email: inviteEmail,
+            }),
+          }
+        );
 
       if (response.ok) {
         const data = await response.json();

@@ -57,7 +57,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-
+import {fetchData} from "../../../../utils/axios";
 interface User {
   id: string;
   name: string;
@@ -146,7 +146,7 @@ const GettinResponse = () => {
   const opendStatus = "Opened";
   const respondedStatus = "Responded";
   const { data: session, status } = useSession();
-  let userId;
+  let userId: string;
   let userName;
   let image;
   if (session) {
@@ -216,9 +216,14 @@ const GettinResponse = () => {
     try {
       console.log("videoId", videoId);
 
-      const response = await fetch(
-        `http://localhost:8080/api/comments/${videoId}`
-      );
+      // const response = await fetch(
+      //   `http://localhost:8080/api/comments/${videoId}`
+      // );
+      const response = await fetchData({
+        url: `/comments/${videoId}`,
+        method: "get",
+        body: null
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch comments");
       }
@@ -328,14 +333,24 @@ const GettinResponse = () => {
       console.log("request body:", topLevelCommentRequestBody);
 
       console.log("formattedTime:", formatTime(currentTime ?? 0));
-      const response = await fetch(
-        `http://localhost:8080/api/comments/createcomment/${videoId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(
+      // const response = await fetch(
+      //   `http://localhost:8080/api/comments/createcomment/${videoId}`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(
+      //       parentCommentId
+      //         ? replyCommentRequestBody
+      //         : topLevelCommentRequestBody
+      //     ),
+      //   }
+      // );
+      const response = await fetchData({
+        url: `/comments/createcomment/${videoId}`,
+        method: "post",
+        body: JSON.stringify(
             parentCommentId
               ? replyCommentRequestBody
               : topLevelCommentRequestBody
@@ -477,16 +492,22 @@ const GettinResponse = () => {
     try {
       console.log("enterd updateStatus");
 
-      const response = await fetch(
-        "http://localhost:8080/api/updateRecipientStatus",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userId, videoId, recipientVideoStatus }),
-        }
-      );
+      // const response = await fetch(
+      //   "http://localhost:8080/api/updateRecipientStatus",
+      //   {
+      //     method: "PUT",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ userId, videoId, recipientVideoStatus }),
+      //   }
+      // );
+
+      const response = await fetchData({
+        url: "/updateRecipientStatus",
+        method: "post",
+        body: JSON.stringify({ userId, videoId, recipientVideoStatus }),
+    });
 
       if (!response.ok) {
         console.log("Response from status update");
@@ -638,12 +659,17 @@ const GettinResponse = () => {
     console.log("called handleDeleteCommment and replyCommendID:", commentId);
 
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/comments/deletecomment/${commentId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      // const response = await fetch(
+      //   `http://localhost:8080/api/comments/deletecomment/${commentId}`,
+      //   {
+      //     method: "DELETE",
+      //   }
+      // );
+      const response = await fetchData({
+          url: `/comments/deletecomment/${commentId}`,
+          method: "post", 
+          body:null
+      });
       console.log("response delete comment:", response);
 
       if (response.ok) {
