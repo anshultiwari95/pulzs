@@ -86,6 +86,7 @@ export function UserAuthForm() {
       // }
       setIsLoading(true);
       // Call your API endpoint for registration
+      console.log("login response")
       const response = await fetchData({
         url: "/registerOrLogin",
         body: JSON.stringify({ email, password }),
@@ -94,11 +95,9 @@ export function UserAuthForm() {
           "Content-Type": "application/json",
         }
       });
-      console.log("response:", response);
       // if (response.ok) {
       // const responseData = await response.json();
-      console.log("responseData:", response);
-      if (response.success) {
+      if (response) {
         // Registration successful, sign in the user
         await signIn("credentials", {
           email: email,
@@ -112,7 +111,6 @@ export function UserAuthForm() {
         // toast.success(response.message);
         // }
       } else {
-        console.log("reached responseData.success else");
         // const errorData = await response.json();
         // console.log("error data:", errorData);
 

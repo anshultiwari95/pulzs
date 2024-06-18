@@ -20,7 +20,7 @@ const ActivityPage = ({ userVideos, workspace, handleDeleteVideo }) => {
   //   filteredUserVideos = userVideos.userVideos;
   // }
   if (userVideos) {
-    filteredUserVideos = userVideos.userVideos.filter((video) => {
+    filteredUserVideos = userVideos?.userVideos?.filter((video) => {
       const responseTime = video.sendVideos?.[0]?.responseTime;
       if (!responseTime) {
         return true; // If responseTime is not there, add the video to filteredVideos
@@ -73,7 +73,7 @@ const ActivityPage = ({ userVideos, workspace, handleDeleteVideo }) => {
       <div className="notification-container">
         <div className="flex flex-col mx-3 my-6">
           <div>Done for now</div>
-          {userVideos.userVideos.map((video) => {
+          {userVideos?.userVideos?.map((video) => {
             const recipients = video?.sendVideos?.[0]?.recipients;
 
             if (recipients && recipients.length > 0) {

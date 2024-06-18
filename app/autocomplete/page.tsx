@@ -121,7 +121,7 @@ export default function Home() {
       </div>
       {matchedUsers.length === 0 && (
         <div className="px-4 py-2 text-center text-gray-600">
-          No matching users found.
+          No matching users found
         </div>
       )}
     </Container>

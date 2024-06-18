@@ -40,7 +40,7 @@ export async function fetchData<T = unknown>({ url, body, method, headers = null
     {
       const error = {
         errorCode: response.status,
-        error: response.statusText
+        errorMessage: response.statusText
       }
       return error
     }

@@ -45,7 +45,7 @@ export function Inviting(props: WorkspaceProps) {
       if (response) {
         // const data = await response.json();
         // console.log("SendVideo response:", data);
-        toast("invite send successfully");
+        toast.success("invite send successfully");
       } else {
         // const data = await response.json();
         console.error("invite not send", response);
@@ -53,7 +53,7 @@ export function Inviting(props: WorkspaceProps) {
       }
     } catch (error) {
       console.error("Error sending video:", error);
-      toast("error", error);
+      toast.error(error?.error);
     }
     setOpenModel(false);
   };

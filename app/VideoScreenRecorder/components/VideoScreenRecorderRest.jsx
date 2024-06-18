@@ -221,6 +221,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
             //     body: formData,
             //   }
             // );
+            console.log("formData",formData)
             const response = await fetchData({
               url: "/uploadVideo",
               method: "post",
@@ -279,7 +280,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
             }
           } catch (error) {
             console.error("Error uploading video:", error?.error);
-            alert("Error uploading video");
+            toast.error("Error uploading video");
           }
         }
       });

@@ -198,9 +198,13 @@ async function validateInput(data) {
     await schema.parseAsync(data);
     return null;
   } catch (error) {
-    return error?.error
-      .map((e) => e.message)
-      .filter((message) => !message.includes("Required"));
+    if(error.length >0)
+    {
+        return error
+        .map((e) => e.message)
+        .filter((message) => !message.includes("Required"));
+    }
+    
   }
 }
 
@@ -258,13 +262,14 @@ export function UserAuthForm() {
       //   },
       //   body: JSON.stringify({ email, password, phonenumber }),
       // });
+      console.log("login response")
       const response = await fetchData({
         url: "/registerOrLogin",
         method: "post",
         body: JSON.stringify({ email, password, phonenumber }),
       });
       // const responseData = await response.json();
-      
+      console.log("login response",response)
       if (response) {
         // Registration successful, sign in the user
         await signIn("credentials", {
@@ -283,11 +288,8 @@ export function UserAuthForm() {
         // toast.success(response.message);
         // }
       } else {
-        console.log("reached responseData.success else");
         router.push("/login");
-        // const errorData = await response.json();
-        // console.log("error data:", errorData);
-
+        console.log()
         toast.error(`${response.message}`);
       }
     } catch (error) {

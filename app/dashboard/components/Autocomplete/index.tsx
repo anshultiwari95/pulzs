@@ -351,7 +351,7 @@ export default function AutoComplete({
         </div>
         {(matchedUsers ?? []).length === 0 && (
           <div className="px-4 py-2 text-center text-gray-300">
-            No matching users found.
+            No matching users found
           </div>
         )}
       </div>
