@@ -50,18 +50,17 @@ export function CreatingWorkspace(props: WorkspaceProps) {
 
   
       if (response) {
-
         // console.log("SendVideo response:", data);
         props.updateWorkspace(response.workspace);
-        toast("workspace created successfully");
+        toast.success("workspace created successfully");
         setOpenModel(false);
       } else {
         console.error("workspace not created", response);
-        toast("try again",response);
+        toast.error("try again",response);
       }
     } catch (error) {
       console.error("Error creating workspace:", error);
-      toast("error", error?.error);
+      toast.error(error?.error);
     }
   };
   return (
