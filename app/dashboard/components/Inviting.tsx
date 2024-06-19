@@ -45,7 +45,7 @@ export function Inviting(props: WorkspaceProps) {
       if (response) {
         // const data = await response.json();
         // console.log("SendVideo response:", data);
-        toast.success("invite send successfully");
+        toast.success("member added successfully");
       } else {
         // const data = await response.json();
         console.error("invite not send", response);

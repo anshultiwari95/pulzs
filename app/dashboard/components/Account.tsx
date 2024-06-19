@@ -22,6 +22,7 @@ const Account = () => {
   const [showLogOut, setShowLogOut] = useState(false);
   const [user, setUser] = useState<User>();
 
+  const [openSettings, setOpenSettings] = useState(false);
   const toggleSettings = () => {
     setShowSettings(!showSettings);
   };
@@ -34,6 +35,11 @@ const Account = () => {
     toggleLogOut();
   };
 
+  const toggleOpenSettings = () => {
+    setOpenSettings(!openSettings)
+    toggleBoth()
+  }
+
   const fetchUserInfo = async () => {
     if (session && userId) {
       try {
@@ -42,9 +48,8 @@ const Account = () => {
           body: null,
           method: "get"
         });
-        console.log("userData", userData)
+        
         setUser(userData?.userInfo);
-        console.log("userInfo", userData.userInfo);
       } catch (ex) {
         console.log("ex from user", ex);
       }
@@ -52,16 +57,19 @@ const Account = () => {
   };
 
   useEffect(() => {
-    console.log("userId from logout", userId);
     fetchUserInfo();
   }, [userId]);
+
+  useEffect(()=>{
+    fetchUserInfo();
+  },[openSettings])
 
   return (
     <div>
       <div className="relative flex mx-2">
         <p>
           <a className="absolute shadow-xl w-full bottom-1 left-0 flex flex-col font-[Inter] justify-start font-normal text-sm text-left m-1 ">
-            {showSettings && <Settings />}
+            {showSettings && <Settings setOpenSettings={toggleOpenSettings}/>}
             {showLogOut && <LogOutPopUp />}
           </a>
         </p>
@@ -71,7 +79,7 @@ const Account = () => {
         onClick={toggleBoth}
       >
         <div>
-          <AvatarDemo imageUrl={user?.image} />
+          <AvatarDemo imageUrl={user?.image}/>
         </div>
         <p className="px-2">{user?.name}</p>
         <IoIosArrowDown />

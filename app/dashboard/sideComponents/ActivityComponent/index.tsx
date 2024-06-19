@@ -36,7 +36,6 @@ const ActivityPage = ({ userVideos, workspace, handleDeleteVideo }) => {
   useEffect(() => {
     const now = new Date();
     const formattedTime = now.toISOString(); // Format the current time as ISO string
-    console.log("formatted time Activity", formattedTime);
 
     setCurrentTime(new Date(formattedTime));
     // socket.on("receiveVideo", (video) => {

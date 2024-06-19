@@ -192,7 +192,7 @@ export const authOptions: AuthOptions = {
           | Record<"email" | "password" | "phonenumber", string>
           | undefined
       ): Promise<User | null> {
-        console.log("entered nextAuth");
+        
         if (!credentials) {
           throw new Error("Credentials are missing");
         }
@@ -200,7 +200,7 @@ export const authOptions: AuthOptions = {
         if (!credentials.email || !credentials.password) {
           throw new Error("Please enter an email and password");
         }
-        console.log("email:", credentials.email);
+        
 
         // // check to see if user exists
         const user = await prisma.user.findUnique({
@@ -208,7 +208,7 @@ export const authOptions: AuthOptions = {
             email: credentials.email,
           },
         });
-        console.log("user from nextauth", user);
+        
 
         if (!user) {
           throw new Error("No user found");
@@ -246,7 +246,7 @@ export const authOptions: AuthOptions = {
         //   },
         // };
 
-        console.log("user from nextauth", user);
+        
 
         return user;
         // Add other fields as needed
@@ -263,7 +263,7 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user, session }) {
       // the processing of JWT occurs before handling sessions.
-      console.log("jwt callback ", { token, user, session });
+      
 
       if (user) {
         // token.accessToken = user.accessToken;
@@ -280,7 +280,7 @@ export const authOptions: AuthOptions = {
 
     //  The session receives the token from JWT
     async session({ session, token, user }) {
-      console.log("session callback ", { token, user, session });
+      
 
       return {
         ...session,

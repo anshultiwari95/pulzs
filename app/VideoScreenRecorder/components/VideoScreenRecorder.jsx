@@ -598,7 +598,7 @@ const VideoScreenRecorder = () => {
               });
             }
           } else {
-            console.log("error screen stream");
+            toast.error("error screen stream");
           }
 
           if (cameraStream && cameraStream.getTracks) {
@@ -634,7 +634,7 @@ const VideoScreenRecorder = () => {
                 file: videoFile,
               },
             });
-            console.log(response);
+            
             if (response.data.fileUpload) {
               alert(
                 "Video uploaded successfully",

@@ -188,9 +188,6 @@ const Dashboard = () => {
   };
 
   const handleCameraAndAudioStopRecording = () => {
-    console.log("hadleStartRecord111");
-
-    console.log("hadleStartRecord222");
 
     (cameraAudioRecorderRef.current as any).stopRecording();
     // setIsNotRecording(true);
@@ -198,17 +195,11 @@ const Dashboard = () => {
   };
 
   const handleScreenAndAudioStartRecording = () => {
-    console.log("hadleStartRecord111");
-
-    console.log("hadleStartRecord222");
 
     (screenAudioRecorderRef.current as any).startRecording();
     setIsNotRecording(false);
   };
   const handleScreenAndAudioStopRecording = () => {
-    console.log("hadleStartRecord111");
-
-    console.log("hadleStartRecord222");
 
     (screenAudioRecorderRef.current as any).stopRecording();
     // setIsNotRecording(true);
@@ -216,7 +207,7 @@ const Dashboard = () => {
   };
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
-    console.log(title);
+    
   };
 
   const handleDescriptionChange = (event) => {
@@ -226,29 +217,28 @@ const Dashboard = () => {
   const handleSelectedUsersChange = (users: UserType[]) => {
     // Handle the selected users in the parent component
     setSelectedUsers(users);
-    console.log("selected Users in parent:", selectedUsers);
+    
     setSelectedUsers((prevUsers) => {
-      console.log("Previous selected users:", prevUsers);
-      console.log("New selected users:", users);
+      
       return users; // Set the state to the new users
     });
   };
   const handleUsers = () => {
     // Handle the selected users in the parent component
-    console.log("selected Users in parent when button pressed", selectedUsers);
+    
   };
   const handleResultsrc = (src) => {
     // Handle the selected users in the parent component
-    console.log("src when button pressed", src);
+    
   };
 
   const handleRecordingCompleteAndGettingVideoId = (videoObject) => {
-    console.log("Video Object from stopRecording(parent):", videoObject);
+    
     // setVideoIdFromVideoScreenRecorder(videoId);
     setVideoObjectFromRecorder(videoObject);
 
     // console.log("videoId in variable", videoIdFromVideoScreenRecorder);
-    console.log("videoId in variable", videoObjectFromRecorder);
+    
 
     // Now you can use the videoIdFromStopRecording as needed in your parent component
   };
@@ -346,6 +336,7 @@ const Dashboard = () => {
       //     workspaceId: selectWorkspace?.workspace_id,
       //   }),
       // });
+      console.log("video sof", videoObjectFromRecorder)
       const response = await fetchData({
         url: "/sendVideo",
         method: "post",
@@ -369,7 +360,7 @@ const Dashboard = () => {
         // console.log("Video sent successfully!");
         // const data = await response.json();
         const recipients = response.recipients;
-        console.log("SendVideo response:", response);
+        
         toast.success("Video Sent");
         socket.emit("sendVideo", {
           recipients,
@@ -391,7 +382,7 @@ const Dashboard = () => {
     try {
       if (session) {
         const userId = session?.user.id;
-        console.log("userId from session", userId);
+        
 
         // const response = await fetch(
         //   `http://localhost:8080/api/getvideos/${session?.user.id}/${selectWorkspace?.workspace_id}`
@@ -523,7 +514,7 @@ const Dashboard = () => {
     });
 
     socket.on("receiveVideo", (videoObjectFromRecorder) => {
-      console.log("Received video object:", videoObjectFromRecorder);
+      
       // Handle received video object
     });
   }, [session, userId, socket]);
@@ -531,13 +522,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (userId) {
-      console.log("userId", userId);
+      
       fetchAllWorkspace();
       fetchUserVideos();
       fetchRecievedVideos();
     }
   }, [selectWorkspace]);
-  console.log(userVideos);
+  
 
   return (
     <div className="bg-slate-100 h-screen  w-screen flex">

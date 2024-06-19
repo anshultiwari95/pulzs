@@ -59,8 +59,6 @@ const ActivityPage = ({
     });
   }
 
-  console.log("currentTime", currentTime);
-
   const recievedVideos = initialReceivedVideos.map((video) => {
     const responseTime = new Date(video.sendVideo.responseTime);
     console.log("recieved responseTime unfiltered", responseTime);
@@ -80,12 +78,11 @@ const ActivityPage = ({
       return currentTime < responseTime;
     }
   );
-  console.log("filteredRecievedVideo", filteredReceivedVideos);
+  // console.log("filteredRecievedVideo", filteredReceivedVideos);
 
   useEffect(() => {
     const now = new Date();
     const formattedTime = now.toISOString(); // Format the current time as ISO string
-    console.log("formatted time Activity", formattedTime);
 
     setCurrentTime(new Date(formattedTime));
     // socket.on("receiveVideo", (video) => {

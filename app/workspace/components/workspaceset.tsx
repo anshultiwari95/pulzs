@@ -41,7 +41,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
   useEffect(() => {
     fetchWorkspace();
     fetchWorkspaceMember();
-  }, [props.selectedWorkspace]);
+  }, [props.selectedWorkspace, modelOpen]);
 
   const fetchWorkspaceMember = async () => {
     if (props.selectedWorkspace?.workspace_id) {
@@ -56,7 +56,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
           });
         // const data = await workspaceMemberData.json();
         setWorkspaceMembers(workspaceMemberData.workspaceMembers);
-        console.log("selectWorkspaceMembers", workspaceMembers);
+        
       } catch (ex) {
         console.log("ex from workspace", ex);
         // alert("Error while fetching workspace");
@@ -79,7 +79,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
           setWorkspaceName(workspaceData.workspace?.name);
         }
 
-        console.log("workspace", workspace);
+        
       } catch (ex) {
         console.log("ex from workspace", ex);
         // alert("Error while fetching workspace");
@@ -131,7 +131,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
 
   const leaveWorkspace = async () => {
     try {
-      console.log("leave workspace");
+      
       // const response = await fetch(
       //   "http://localhost:8080/api/leave-workspace",
       //   {
@@ -156,7 +156,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
       });
 
       if (response) {
-        console.log("Work space left successfully");
+        
 
         const workspace: workspace = {
           name: "",
@@ -165,24 +165,24 @@ export function WorkSpaceSet(props: WorkspaceProps) {
         };
         props.updateWorkspace(workspace);
         // console.log("SendVideo response:", data);
-        toast("workspace left successfully");
+        toast.success("workspace left successfully");
       } else {
         // const data = await response.json();
-        console.log("error in leaving ", response);
+        
 
-        toast(response?.error);
+        toast.error(response?.error);
       }
       setModelOpen(false);
     } catch (error) {
       console.log("Error leaving Workspace", error);
       // toast("Error leaving Workspace");
-      toast(error?.error);
+      toast.error(error?.error);
     }
   };
 
   const deleteWorkspace = async () => {
     try {
-      console.log("delete workspace");
+      
       // const response = await fetch(
       //   "http://localhost:8080/api/delete-workspace",
       //   {
@@ -206,7 +206,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
       });
 
       if (response) {
-        console.log("Work space delete successfully");
+        
 
         const workspace: workspace = {
           name: "",
@@ -306,7 +306,7 @@ export function WorkSpaceSet(props: WorkspaceProps) {
                           value={workspaceName}
                           disabled={workspace?.workspace_creator_id != userId}
                           onChange={(e) => {
-                            console.log("workspace", e.target.value);
+                            
                             setWorkspaceName(e.target.value);
                           }}
                         />

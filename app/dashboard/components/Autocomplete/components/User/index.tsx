@@ -43,7 +43,7 @@ const UserList: React.FC<UserListProps> = ({
   const userId = session?.user.id;
   return (
     <div
-      className={`flex flex-col justify-center items-center gap-2 px-1 bg-red-500 py-2  ${
+      className={`flex flex-col justify-center items-center gap-2 px-1 py-2  ${
         users.length > 2
           ? "max-h-[120px] overflow-x-hidden  overflow-y-auto"
           : ""
@@ -77,18 +77,7 @@ const UserList: React.FC<UserListProps> = ({
             {/* Check if the name has more than 4 letters */}
             {user.name.length > 4 ? insertLineBreak(user.name, 4) : user.name}
           </span>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              value=""
-              className="sr-only peer "
-              onChange={() => handleToggle(user)}
-            ></input>
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none    rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-              {/* <StarHalf fill="yellow" strokeWidth={0} /> */}
-            </div>
-            <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
-          </label>
+          
           {/* <div className="relative inline-block align-middle select-none">
             <input
               type="checkbox"
