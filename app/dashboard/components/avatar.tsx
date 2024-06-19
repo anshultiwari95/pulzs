@@ -4,9 +4,9 @@ interface AvatarDemoProps {
   imageUrl?: string;
 }
 export const AvatarDemo: React.FC<AvatarDemoProps> = ({ imageUrl }) => {
-  console.log("imageUrl in avatar", imageUrl);
+  
   const image =
-    imageUrl === undefined
+    !imageUrl
       ? "https://avatars.githubusercontent.com/u/124599?v=4"
       : imageUrl;
 

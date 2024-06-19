@@ -66,7 +66,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       // Check if videoElement is not null before accessing its properties
       if (videoElement) {
         const currentTime = videoElement.currentTime;
-        console.log("Current Time:", currentTime);
         onTimeUpdate(currentTime);
       }
     };

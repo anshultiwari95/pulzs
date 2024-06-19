@@ -32,7 +32,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
   console.log("Requestbody from videoScreenRecorder", requestBody);
   console.log(`typecomment1:${typeComment1}`);
   console.log("saveVideoAfterStopRecording", saveVideoAfterStopRecordingOrNot);
-  console.log("selectWorkspaceID", selectWorkspace?.workspace_id);
+  
   const workspaceId = selectWorkspace?.workspace_id;
 
   useImperativeHandle(ref, () => ({
@@ -313,7 +313,7 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
       }
       formData.append("typeComment", type);
 
-      console.log(formData);
+      
       // const response = await fetch(
       //   `http://localhost:8080/api/comments/createvideocomment/${videoId}`,
       //   {
@@ -331,10 +331,10 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
         console.error(`Error uploading video:`);
       }
       // const responseData = await response.json();
-      console.log("Server Response:", response);
+      
 
       const { result, success } = response;
-      console.log("sucess", success);
+      
       if (
         result.VideoUploadedToS3Details &&
         result.VideoUploadedToS3Details.key
@@ -355,9 +355,9 @@ const VideoScreenRecorder = forwardRef((props, ref) => {
       //   resultVideosrc:`https://d1yt4919vxgwb5.cloudfront.net/${result.key}`, // Set a default value
       // };
 
-      console.log(resultVideosrc);
+      
       if (success) {
-        console.log(`src:${resultVideosrccontext}`);
+        
         toast("Video uploaded successfully");
       } else {
         toast("Video upload failed");
@@ -463,7 +463,7 @@ const VideoScreen = ({
   const handleRecordingComplete = (data) => {
     setRecordedVideoLink(data);
   };
-  console.log(`src in parent ${resultVideosrccontext}`);
+  
   return (
     <VideoScreenRecorder
       ref={playerRef}

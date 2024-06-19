@@ -13,7 +13,7 @@ import { NextResponse } from "next/server";
 // config();
 
 export async function POST(request) {
-  console.log("hello login called");
+  
 
   // console.log(req.body);
 
@@ -31,20 +31,20 @@ export async function POST(request) {
     let user;
     try {
       user = await prisma.user.findUnique({ where: { email: email } });
-      console.log("user from registerorlogin", user);
+      
     } catch (error) {
       console.error("error to find user", error);
     }
 
     if (!user) {
-      console.log("enter register");
+      
       // No user, registration will be done
       //   const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const hashedPassword = await bcrypt.hash(password, 10);
       // console.log(hashedPassword);
 
       const name = email.split("@")[0];
-      console.log(name);
+      
 
       //   await prisma.user.create({
       //     data:{
@@ -63,7 +63,7 @@ export async function POST(request) {
           phonenumber: phonenumber,
         },
       });
-      console.log("hello login called2");
+      
 
       let workspace, workspaceMember;
       try {
@@ -81,7 +81,7 @@ export async function POST(request) {
             workspace_id: workspace.workspace_id,
           },
         });
-        console.log(workspace);
+        
       } catch (error) {
         console.error("Error creating workspace:", error);
         return (
@@ -91,7 +91,7 @@ export async function POST(request) {
         );
       }
 
-      console.log(oneUser);
+      
 
       return NextResponse.json({
         message: "Registration Successful",
@@ -101,17 +101,17 @@ export async function POST(request) {
         success: true,
       });
     } else {
-      console.log("entered login");
+      
 
       if (user.password !== null) {
-        console.log("entered user.password");
+        
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         // User exists, login will be done
-        console.log("ispasswordValid", isPasswordValid);
+        
 
         if (isPasswordValid) {
-          console.log("entered isPasswordValid true ");
+          
 
           return NextResponse.json({
             message: "Login Successful",
@@ -119,7 +119,7 @@ export async function POST(request) {
             success: true,
           });
         } else {
-          console.log("entered isPasswordValid false ");
+          
 
           return NextResponse.json({
             message: "Incorrect password",

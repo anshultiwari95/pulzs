@@ -23,7 +23,12 @@ export interface User {
   emailVerified: boolean;
   image: string;
 }
-export function Settings() {
+
+export interface Props {
+  setOpenSettings : (toggle: boolean)=>void
+};
+
+export function Settings(props: Props) {
   const { data: session, status } = useSession();
   const userId = session?.user.id;
   const [userName, setUserName] = useState("");
@@ -32,6 +37,12 @@ export function Settings() {
   useEffect(() => {
     fetchUserInfo();
   }, []);
+
+
+  const setOpen = (toggle: boolean) => {
+    props.setOpenSettings(toggle)
+    setOpenModal(toggle);
+  }
 
   const fetchUserInfo = async () => {
     if (session && userId) {
@@ -46,7 +57,6 @@ export function Settings() {
         });
         // const data = await userData.json();
         setUser(userData?.userInfo);
-        console.log("userInfo", userData.userInfo);
         setUserName(userData?.userInfo?.name);
       } catch (ex) {
         console.log("ex from user", ex);
@@ -79,21 +89,19 @@ export function Settings() {
           }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      
+      if (response) {
+        // const data = await response.json();
         await fetchUserInfo();
         // console.log("SendVideo response:", data);
-        toast("user name updated successfully");
+        toast.success("user name updated successfully");
       } else {
-        console.error("Failed to update user name");
-        const data = await response.json();
-        console.error("Error response:", data.error);
-        toast("error", data.error);
+        toast.error("error", response.error);
       }
-      setOpenModal(false);
+      setOpen(false);
     } catch (error) {
-      console.error("Error updating user name:", error);
-      toast("error", error);
+      console.log("Error updating user name:", error);
+      toast("error", error.error);
     }
   };
   return (
@@ -113,12 +121,12 @@ export function Settings() {
               <div className="scale-[5] ml-10">
                 <AvatarDemo imageUrl={user?.image} />
               </div>
-              <button className="flex flex-row items-center justify-center mx-12">
+              {/* <button className="flex flex-row items-center justify-center mx-12">
                 <BsPersonAdd className="text-black text-3xl mx-2" />
                 <span className="font-[poppins] text-sm font-normal text-black">
                   Upload profile photo
                 </span>
-              </button>
+              </button> */}
             </div>
           </DialogDescription>
         </DialogHeader>

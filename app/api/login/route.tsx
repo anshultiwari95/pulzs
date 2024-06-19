@@ -13,7 +13,7 @@ import { NextResponse } from "next/server";
 // config();
 
 export async function POST(request) {
-  console.log("hello login called");
+  
 
   // console.log(req.body);
 
@@ -31,23 +31,23 @@ export async function POST(request) {
     let user;
     try {
       user = await prisma.user.findUnique({ where: { email: email } });
-      console.log("user from registerorlogin", user);
+      
     } catch (error) {
       console.error("error to find user", error);
     }
 
     if (user) {
-      console.log("entered login");
+      
 
       if (user.password !== null) {
-        console.log("entered user.password");
+      
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         // User exists, login will be done
-        console.log("ispasswordValid", isPasswordValid);
+        
 
         if (isPasswordValid) {
-          console.log("entered isPasswordValid true ");
+          
 
           return NextResponse.json({
             message: "Login Successful",
@@ -55,7 +55,7 @@ export async function POST(request) {
             success: true,
           });
         } else {
-          console.log("entered isPasswordValid false ");
+          
 
           return NextResponse.json({
             message: "Incorrect password",
